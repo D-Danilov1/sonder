@@ -44,10 +44,10 @@ describe('UsersService', () => {
 
     describe('when create is called', () => {
       let user: Users;
-      let findSpy;
+      let createSpy;
 
       beforeEach(async () => {
-        findSpy = jest.spyOn(model, 'create').mockReturnValue({
+        createSpy = jest.spyOn(model, 'create').mockReturnValue({
           $set: jest.fn(),
         } as any);
         user = await service.create(usersCreateStub());
@@ -183,7 +183,7 @@ describe('UsersService', () => {
       let findSpy;
 
       beforeEach(async () => {
-        findSpy = jest.spyOn(model, 'findByPk').mockReturnValue({
+        findSpy = jest.spyOn(model, 'findOne').mockReturnValue({
           $add: jest.fn(),
         } as any);
         result = await service.addRoleToUser(roleToUserStub());
@@ -209,7 +209,7 @@ describe('UsersService', () => {
       let findSpy;
 
       beforeEach(async () => {
-        findSpy = jest.spyOn(model, 'findByPk').mockReturnValue({
+        findSpy = jest.spyOn(model, 'findOne').mockReturnValue({
           $remove: jest.fn(),
         } as any);
         result = await service.removeRoleToUser(roleToUserStub());

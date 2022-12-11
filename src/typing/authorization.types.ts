@@ -1,8 +1,8 @@
 import { UserPayload } from './users.types';
 
 export interface AuthorizationResponse {
-  accessToken: string;
   user: UserPayload;
+  accessToken: string;
   refreshToken: string;
 }
 

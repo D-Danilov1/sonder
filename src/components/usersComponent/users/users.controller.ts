@@ -117,7 +117,7 @@ export class UsersController {
   @Put('/add/role')
   async addRoleToUser(
     @Body() dto: RoleToUserDto,
-  ): Promise<{ response: UsersRoles; statusCode: number }> {
+  ): Promise<{ response: unknown; statusCode: HttpStatus }> {
     return {
       statusCode: HttpStatus.OK,
       response: await this.service.addRoleToUser(dto),

@@ -6,6 +6,7 @@ import { tokenStub } from './stubs/token.stub';
 import { Users } from '../../users/models/users.model';
 import { usersCreateStub } from '../../users/test/stubs/users-create.stub';
 import { usersStub } from '../../users/test/stubs/users.stub';
+import { passthrough } from '../../../../typing/response-setting.types';
 
 jest.mock('../authorization.service');
 
@@ -24,6 +25,8 @@ describe('AuthorizationController', () => {
   });
 
   describe('authorization', () => {
+    let cookieSpy;
+
     it('should be defined', () => {
       expect(service.login).toBeDefined();
     });
@@ -32,9 +35,7 @@ describe('AuthorizationController', () => {
       let tokens;
 
       beforeEach(async () => {
-        tokens = (await controller.login(authorizationStub(), {
-          passthrough: true,
-        })).response;
+        tokens = (await controller.login(authorizationStub(), passthrough)).response;
       });
 
       it('should call authorizationService', () => {

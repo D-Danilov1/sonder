@@ -5,6 +5,7 @@ import { USERS_CATEGORIES } from '../../../constants/users-categories.constants'
 import { UsersService } from '../../usersComponent/users/users.service';
 import { UsersCategoriesService } from '../../usersComponent/users-categories/users-categories.service';
 
+// TODO: вынести всё в Seeds
 @Injectable()
 export class InitializerService {
   constructor(

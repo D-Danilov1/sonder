@@ -39,14 +39,22 @@ describe('AuthorizationService', () => {
     });
 
     describe('when authorization is called', () => {
-      let token;
+      let response;
 
       beforeEach(async () => {
-        token = await service.login(authorizationStub());
+        response = await service.login(authorizationStub());
       });
 
-      it('should return a token', () => {
-        expect(token.token).toBeDefined();
+      it('should return a user ID', () => {
+        expect(response.user).toBeDefined();
+      });
+
+      it('should return a access token', () => {
+        expect(response.accessToken).toBeDefined();
+      });
+
+      it('should return a refresh token', () => {
+        expect(response.refreshToken).toBeDefined();
       });
     });
   });

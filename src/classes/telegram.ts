@@ -1,11 +1,12 @@
 import * as TelegramBot from 'node-telegram-bot-api';
+import { CLIENT_URL, TELEGRAM_TOKEN } from '../constants/server.constants';
 
 export class Telegram {
   private readonly bot: TelegramBot;
-  private clientUrl: string = process.env.CLIENT_URL;
+  private readonly clientUrl: string = CLIENT_URL;
 
   constructor() {
-    this.bot = new TelegramBot(process.env.TELEGRAM_TOKEN, { polling: true });
+    this.bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true });
   }
 
   getBot(): TelegramBot {

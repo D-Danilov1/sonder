@@ -12,9 +12,10 @@ export class Token {
   private jwtServiceGenerator: JwtServiceGenerator;
 
   constructor() {
+    // TODO: вынести в конструктор
     this.jwtServiceGenerator = new JwtServiceGenerator();
-
     const config = new ConfigService();
+
     this.accessTokenLifeTime = config.get('ACCESS_TOKEN_LIFETIME');
     this.accessTokenSecretKey = config.get('ACCESS_TOKEN_SECRET_KEY');
     this.refreshTokenLifeTime = config.get('REFRESH_TOKEN_LIFETIME');

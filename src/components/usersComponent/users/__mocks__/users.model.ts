@@ -7,7 +7,10 @@ export const UsersModel = {
   findAll: jest.fn().mockImplementation(() => {
     return [usersStub()];
   }),
-  findOne: jest.fn().mockImplementation(() => {
+  findOne: jest.fn().mockImplementation(({ where }) => {
+    if (where.email === 'testCreate@example.com') {
+      return null;
+    }
     return usersStub();
   }),
   findByPk: jest.fn().mockImplementation(() => {
