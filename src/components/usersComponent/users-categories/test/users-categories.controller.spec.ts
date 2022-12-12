@@ -6,6 +6,7 @@ import { UsersCategories } from '../models/users-categories.model';
 import { usersCategoriesCreateStub } from './stubs/users-categories-create.stub';
 import { usersCategoriesStub } from './stubs/users-categories.stub';
 import { usersCategoriesUpdateStub } from './stubs/users-categories-update.stub';
+import { EntityModel } from '../../../../database/entity.model';
 
 jest.mock('../users-categories.service');
 
@@ -37,7 +38,7 @@ describe('UsersCategoriesController', () => {
     });
 
     describe('when create is called', () => {
-      let usersCategory: UsersCategories;
+      let usersCategory: EntityModel<UsersCategories>;
 
       beforeEach(async () => {
         usersCategory = (await controller.create(usersCategoriesCreateStub()))

@@ -1,15 +1,13 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
+import { EntityModel } from '../../../../database/entity.model';
 
 interface UsersCategoriesCreationAttrs {
   name: string;
 }
 
 @Table({ tableName: 'UsersCategories' })
-export class UsersCategories extends Model<
-  UsersCategories,
-  UsersCategoriesCreationAttrs
-> {
+export class UsersCategories extends EntityModel<UsersCategories, UsersCategoriesCreationAttrs> {
   @ApiProperty({ example: '1', description: 'Unique identifier' })
   @Column({
     type: DataType.INTEGER,

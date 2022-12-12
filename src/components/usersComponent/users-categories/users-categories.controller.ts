@@ -19,6 +19,7 @@ import { UsersCategories } from './models/users-categories.model';
 import { CreateUsersCategoriesDto } from './dto/create-users-categories.dto';
 import { UpdateUsersCategoriesDto } from './dto/update-users-categories.dto';
 import { ROLES } from '../../../constants/roles.constants';
+import { EntityModel } from '../../../database/entity.model';
 
 @ApiTags('UsersCategories')
 @Controller('/api/users-categories')
@@ -33,7 +34,7 @@ export class UsersCategoriesController {
   @Post()
   async create(
     @Body() dto: CreateUsersCategoriesDto,
-  ): Promise<{ response: UsersCategories; statusCode: number }> {
+  ): Promise<{ response: EntityModel<UsersCategories>; statusCode: number }> {
     return {
       statusCode: HttpStatus.CREATED,
       response: await this.service.create(dto),

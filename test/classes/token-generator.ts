@@ -13,7 +13,7 @@ export class TokenGenerator {
     const authorization = await request(
       (await AppGenerator.getApp()).getHttpServer(),
     )
-      .post('/api/authorization')
+      .post('/api/login')
       .send({ email: 'admin@gmail.com', password: 'adminAdmin' });
 
     return authorization.body.response.token;
@@ -23,7 +23,7 @@ export class TokenGenerator {
     const authorization = await request(
       (await AppGenerator.getApp()).getHttpServer(),
     )
-      .post('/api/authorization')
+      .post('/api/login')
       .send({ email: 'user@gmail.com', password: 'userUser' });
 
     return authorization.body.response.token;

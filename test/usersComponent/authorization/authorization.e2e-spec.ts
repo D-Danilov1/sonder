@@ -16,10 +16,10 @@ describe('Authorization (e2e)', () => {
     await AppInitializer.appInitialization();
   });
 
-  describe('/api/authorization (POST)', () => {
+  describe('/api/login (POST)', () => {
     it('should return a token', async () => {
       await request(app.getHttpServer())
-        .post('/api/authorization')
+        .post('/api/login')
         .send(authorizationStub())
         .expect(HttpStatus.CREATED);
     });
@@ -42,7 +42,7 @@ describe('Authorization (e2e)', () => {
       .delete('/api/users/' + userID)
       .set(
         'Authorization',
-        'Bearer ' + (await TokenGenerator.getSyntheticToken()),
+        'Bearer ' + (TokenGenerator.getSyntheticToken()),
       )
       .then((response) => {
         expect(response.body.response).toEqual(1);

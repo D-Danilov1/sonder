@@ -2,15 +2,20 @@ import {
   Column,
   DataType,
   ForeignKey,
-  Model,
   Table,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { Roles } from '../roles/models/roles.model';
 import { Users } from '../users/models/users.model';
+import { EntityModel } from '../../../database/entity.model';
+
+interface UsersRolesCreationAttrs {
+  userID: string;
+  roleID: number;
+}
 
 @Table({ tableName: 'UsersRoles' })
-export class UsersRoles extends Model<UsersRoles> {
+export class UsersRoles extends EntityModel<UsersRoles, UsersRolesCreationAttrs> {
   @ApiProperty({ example: '1', description: 'Unique identifier' })
   @Column({
     type: DataType.INTEGER,

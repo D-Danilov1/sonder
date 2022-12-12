@@ -19,6 +19,7 @@ import { ValidationPipe } from '../../../pipes/validation.pipe';
 import { CreateRolesDto } from './dto/create-roles.dto';
 import { UpdateRolesDto } from './dto/update-roles.dto';
 import { ROLES } from '../../../constants/roles.constants';
+import { EntityModel } from '../../../database/entity.model';
 
 @ApiTags('Roles')
 @Controller('/api/roles')
@@ -33,7 +34,7 @@ export class RolesController {
   @Post()
   async create(
     @Body() dto: CreateRolesDto,
-  ): Promise<{ response: Role; statusCode: number }> {
+  ): Promise<{ response: EntityModel<Role>; statusCode: HttpStatus.CREATED }> {
     return {
       statusCode: HttpStatus.CREATED,
       response: await this.service.create(dto),

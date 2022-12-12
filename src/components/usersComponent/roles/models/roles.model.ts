@@ -2,19 +2,19 @@ import {
   BelongsToMany,
   Column,
   DataType,
-  Model,
   Table,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { Users } from '../../users/models/users.model';
 import { UsersRoles } from '../../many-to-many/users-roles.model';
+import { EntityModel } from '../../../../database/entity.model';
 
 interface RoleCreationAttrs {
   name: string;
 }
 
 @Table({ tableName: 'Roles' })
-export class Roles extends Model<Roles, RoleCreationAttrs> {
+export class Roles extends EntityModel<Roles, RoleCreationAttrs> {
   @ApiProperty({ example: '1', description: 'Unique identifier' })
   @Column({
     type: DataType.INTEGER,

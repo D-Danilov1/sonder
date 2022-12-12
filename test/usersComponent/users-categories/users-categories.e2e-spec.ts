@@ -6,12 +6,13 @@ import { AppGenerator } from '../../classes/app-generator';
 import { TokenGenerator } from '../../classes/token-generator';
 import { AppInitializer } from '../../classes/app-initializer';
 import { UsersCategories } from '../../../src/components/usersComponent/users-categories/models/users-categories.model';
+import { EntityModel } from '../../../src/database/entity.model';
 
 describe('UsersCategories (e2e)', () => {
   let app: INestApplication;
   let tokenAdmin: string;
   let tokenUser: string;
-  let usersCategory: UsersCategories;
+  let usersCategory: EntityModel<UsersCategories>;
 
   beforeAll(async () => {
     AppInitializer.jestSetTimeout();

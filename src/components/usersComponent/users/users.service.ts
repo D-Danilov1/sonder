@@ -3,20 +3,46 @@ import { Users } from './models/users.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { RolesService } from '../roles/roles.service';
 import { EntityService } from '../../../database/entity.service';
-import { createUsers } from '../../../traits/create-custom.trait';
 import { findByEmail } from '../../../traits/find-by.trait';
 import { RoleToUserDto } from './dto/role-to-user.dto';
+import { CreateUsersDto } from './dto/create-users.dto';
+import { randomUUID } from 'crypto';
+import { ROLES } from '../../../constants/roles.constants';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService extends EntityService {
   constructor(
-    @InjectModel(Users) private repository: typeof Users,
+    @InjectModel(Users) protected repository,
     private rolesService: RolesService,
   ) {
-    super();
+    super(repository);
   }
 
-  create = createUsers;
+  async create(dto: CreateUsersDto): Promise<Users> {
+    const candidate = await this.repository.findOne({
+      where: { email: dto.email },
+    });
+    if (candidate) {
+      throw new HttpException('A user with this Email already exists',
+        HttpStatus.BAD_REQUEST);
+    }
+
+    dto.password = await UsersService.setPasswordToUser(dto.password);
+
+    const id = randomUUID();
+    const user: Users = await this.repository.create({ id: id, ...dto });
+
+    const role = await this.rolesService.findByName(ROLES.USER);
+    await user.$set('roles', [role.id]);
+
+    return user;
+  }
+
+  private static async setPasswordToUser(password) {
+    return await bcrypt.hash(password, 6);
+  }
+
   findByEmail = findByEmail;
 
   async addRoleToUser(dto: RoleToUserDto) {

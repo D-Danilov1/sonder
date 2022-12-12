@@ -6,10 +6,8 @@ import { UsersCategories } from './models/users-categories.model';
 
 @Injectable()
 export class UsersCategoriesService extends EntityService {
-  constructor(
-    @InjectModel(UsersCategories) private repository: typeof UsersCategories,
-  ) {
-    super();
+  constructor(@InjectModel(UsersCategories) protected repository) {
+    super(repository);
   }
 
   findByName = findByName;

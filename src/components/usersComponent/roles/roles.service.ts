@@ -6,8 +6,8 @@ import { findByName } from '../../../traits/find-by.trait';
 
 @Injectable()
 export class RolesService extends EntityService {
-  constructor(@InjectModel(Roles) private repository: typeof Roles) {
-    super();
+  constructor(@InjectModel(Roles) protected repository) {
+    super(repository);
   }
 
   findByName = findByName;

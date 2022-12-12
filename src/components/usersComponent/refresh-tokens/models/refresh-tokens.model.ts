@@ -3,11 +3,11 @@ import {
   Column,
   DataType,
   ForeignKey,
-  Model,
   Table,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { Users } from '../../users/models/users.model';
+import { EntityModel } from '../../../../database/entity.model';
 
 interface RefreshTokenCreationAttrs {
   userID: string;
@@ -15,10 +15,7 @@ interface RefreshTokenCreationAttrs {
 }
 
 @Table({ tableName: 'RefreshTokens' })
-export class RefreshTokens extends Model<
-  RefreshTokens,
-  RefreshTokenCreationAttrs
-> {
+export class RefreshTokens extends EntityModel<RefreshTokens, RefreshTokenCreationAttrs> {
   @ApiProperty({ example: '1', description: 'Unique identifier' })
   @Column({
     type: DataType.INTEGER,

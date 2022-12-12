@@ -21,7 +21,6 @@ import {
   RefreshResponse,
 } from '../../../typing/authorization.types';
 import { Users } from '../users/models/users.model';
-import { Response } from 'express';
 
 @ApiTags('Authorization and registration')
 @Controller('/api')

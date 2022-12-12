@@ -18,7 +18,6 @@ import { Roles } from '../authorization/decorators/roles-auth.decorator';
 import { RolesGuard } from '../authorization/guards/roles.guard';
 import { RoleToUserDto } from './dto/role-to-user.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
-import { UsersRoles } from '../many-to-many/users-roles.model';
 import { ValidationPipe } from '../../../pipes/validation.pipe';
 import { ROLES } from '../../../constants/roles.constants';
 

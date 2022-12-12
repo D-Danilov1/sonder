@@ -6,6 +6,7 @@ import { RolesService } from '../roles.service';
 import { Roles } from '../models/roles.model';
 import { rolesCreateStub } from './stubs/roles-create.stub';
 import { rolesUpdateStub } from './stubs/roles-update.stub';
+import { EntityModel } from '../../../../database/entity.model';
 
 jest.mock('../roles.service');
 
@@ -35,7 +36,7 @@ describe('RolesController', () => {
     });
 
     describe('when create is called', () => {
-      let role: Roles;
+      let role: EntityModel<Roles>;
 
       beforeEach(async () => {
         role = (await controller.create(rolesCreateStub())).response;

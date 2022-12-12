@@ -6,6 +6,5 @@ export const usersCategoriesStub = (): UsersCategories => {
     name: expect.any(String),
     createdAt: expect.any(String),
     updatedAt: expect.any(String),
-    posts: expect.any(Array),
   };
 };

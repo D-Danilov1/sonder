@@ -6,12 +6,13 @@ import { AppGenerator } from '../../classes/app-generator';
 import { TokenGenerator } from '../../classes/token-generator';
 import { AppInitializer } from '../../classes/app-initializer';
 import { Roles } from '../../../src/components/usersComponent/roles/models/roles.model';
+import { EntityModel } from '../../../src/database/entity.model';
 
 describe('Roles (e2e)', () => {
   let app: INestApplication;
   let tokenAdmin: string;
   let tokenUser: string;
-  let role: Roles;
+  let role: EntityModel<Roles>;
 
   beforeAll(async () => {
     AppInitializer.jestSetTimeout();

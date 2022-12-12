@@ -5,6 +5,7 @@ import { UsersCategories } from '../models/users-categories.model';
 import { UsersCategoriesModel } from '../__mocks__/users-categories.model';
 import { usersCategoriesCreateStub } from './stubs/users-categories-create.stub';
 import { usersCategoriesStub } from './stubs/users-categories.stub';
+import { EntityModel } from '../../../../database/entity.model';
 
 describe('UsersCategoriesService', () => {
   let service: UsersCategoriesService;
@@ -35,7 +36,7 @@ describe('UsersCategoriesService', () => {
     });
 
     describe('when create is called', () => {
-      let usersCategory: UsersCategories;
+      let usersCategory: EntityModel<UsersCategories>;
 
       beforeEach(async () => {
         usersCategory = await service.create(usersCategoriesCreateStub());
