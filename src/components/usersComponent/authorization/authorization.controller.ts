@@ -1,34 +1,20 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  HttpStatus,
-  Post,
-  Put,
-  Req,
-  Res,
-  UsePipes,
-} from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, HttpStatus, Post, Put, Req, Res, UsePipes } from '@nestjs/common';
 import { CreateUsersDto } from '../users/dto/create-users.dto';
 import { AuthorizationService } from './authorization.service';
 import { AuthorizationDto } from './dto/authorization.dto';
 import { ValidationPipe } from '../../../pipes/validation.pipe';
-import { Cookies } from '../../../classes/cookies';
+import { Cookies } from '../../../classes/authorization/jwt/cookies';
 import { passthrough } from '../../../typing/response-setting.types';
-import {
-  AuthorizationResponse,
-  RefreshResponse,
-} from '../../../typing/authorization.types';
+import { AuthorizationResponse, RefreshResponse } from '../../../typing/authorization.types';
 import { Users } from '../users/models/users.model';
+import { EntityModel } from '../../../classes/core/entity.model';
+import { Request } from 'express';
 
-@ApiTags('Authorization and registration')
 @Controller('/api')
 export class AuthorizationController {
-  constructor(private service: AuthorizationService) {}
+  constructor(private service: AuthorizationService) {
+  }
 
-  @ApiOperation({ summary: 'Log in to user account' })
-  @ApiResponse({ status: HttpStatus.CREATED, type: Object })
   @UsePipes(ValidationPipe)
   @Post('/login')
   async login(
@@ -48,28 +34,24 @@ export class AuthorizationController {
     };
   }
 
-  @ApiOperation({ summary: 'Registration for users' })
-  @ApiResponse({ status: HttpStatus.CREATED, type: Users })
   @UsePipes(ValidationPipe)
   @Post('/registration')
   async registration(
     @Body() dto: CreateUsersDto,
-  ): Promise<{ response: Users; statusCode: number }> {
+  ): Promise<{response: EntityModel<Users>; statusCode: number}> {
     return {
       statusCode: HttpStatus.CREATED,
       response: await this.service.registration(dto),
     };
   }
 
-  @ApiOperation({ summary: 'Log out to user account' })
-  @ApiResponse({ status: HttpStatus.OK, type: Object })
   @UsePipes(ValidationPipe)
   @Delete('/logout')
   async logout(
-    @Req() request,
+    @Req() request: Request,
     @Res(passthrough) response,
-  ): Promise<{ response: number; statusCode: HttpStatus.OK }> {
-    const { refreshToken } = request.cookies;
+  ): Promise<{response: number; statusCode: HttpStatus.OK}> {
+    const {refreshToken} = request.cookies;
 
     response.clearCookie('refreshToken');
 
@@ -79,14 +61,12 @@ export class AuthorizationController {
     };
   }
 
-  @ApiOperation({ summary: 'Refresh user refreshToken' })
-  @ApiResponse({ status: HttpStatus.OK, type: Object })
   @UsePipes(ValidationPipe)
   @Put('/refresh')
   async refresh(
-    @Req() request,
-  ): Promise<{ response: RefreshResponse; statusCode: HttpStatus.OK }> {
-    const { refreshToken } = request.cookies;
+    @Req() request: Request,
+  ): Promise<{response: RefreshResponse; statusCode: HttpStatus.OK}> {
+    const {refreshToken} = request.cookies;
     const data = await this.service.refresh(refreshToken);
 
     return {

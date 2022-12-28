@@ -8,8 +8,7 @@ export const mockUsersService = {
     if (userStub.email != 'test@example.com') {
       return null;
     }
-    userStub.password =
-      '$2y$06$ccOOIcDyNTRXxnnMZlV6tOshBCiuFZM6rTKHIur.tfiFUHl12tKhy';
+    userStub.password = '$2y$06$ccOOIcDyNTRXxnnMZlV6tOshBCiuFZM6rTKHIur.tfiFUHl12tKhy';
     return userStub;
   }),
 };

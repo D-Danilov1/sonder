@@ -4,6 +4,8 @@ import { ROLES } from '../../../constants/roles.constants';
 import { USERS_CATEGORIES } from '../../../constants/users-categories.constants';
 import { UsersService } from '../../usersComponent/users/users.service';
 import { UsersCategoriesService } from '../../usersComponent/users-categories/users-categories.service';
+import { EntityModel } from '../../../classes/core/entity.model';
+import { Users } from '../../usersComponent/users/models/users.model';
 
 // TODO: вынести всё в Seeds
 @Injectable()
@@ -12,17 +14,16 @@ export class InitializerService {
     private rolesService: RolesService,
     private usersCategoriesService: UsersCategoriesService,
     private usersService: UsersService,
-  ) {}
+  ) {
+  }
 
   async initialization() {
     await InitializerService.findOrCreateSimpleConstants([
-      { service: this.rolesService, constants: ROLES },
-      { service: this.usersCategoriesService, constants: USERS_CATEGORIES },
+      {service: this.rolesService, constants: ROLES},
+      {service: this.usersCategoriesService, constants: USERS_CATEGORIES},
     ]);
 
-    await InitializerService.findOrCreateDifficultConstants([
-
-    ]);
+    await InitializerService.findOrCreateDifficultConstants([]);
 
     await this.findOrCreateAdminAccount();
     await this.findOrCreateUserAccount();
@@ -59,10 +60,10 @@ export class InitializerService {
           );
 
           if (this.checkingForNull(constant)) {
-            const obj = { name: data[i].mainConstants[category][key] };
+            const obj = {name: data[i].mainConstants[category][key]};
             obj[data[i].foreignKey] = data[i].secondConstants[category];
 
-            await this.createConstant(data[i].mainService, { ...obj });
+            await this.createConstant(data[i].mainService, {...obj});
           }
         }
       }
@@ -85,13 +86,15 @@ export class InitializerService {
     const account = await this.usersService.findByEmail('admin@gmail.com');
 
     if (account === null) {
-      const user = await this.usersService.create({
+      const user: EntityModel<Users> = await this.usersService.create({
         email: 'admin@gmail.com',
         password: 'adminAdmin',
       });
 
       await this.usersService.addRoleToUser({
         roleName: ROLES.ADMIN,
+        // FIXME: разобраться с типами
+        // @ts-ignore
         userEmail: user.email,
       });
     }

@@ -6,7 +6,7 @@ import { RolesService } from '../roles.service';
 import { Roles } from '../models/roles.model';
 import { rolesCreateStub } from './stubs/roles-create.stub';
 import { rolesUpdateStub } from './stubs/roles-update.stub';
-import { EntityModel } from '../../../../database/entity.model';
+import { EntityModel } from '../../../../classes/core/entity.model';
 
 jest.mock('../roles.service');
 
@@ -58,7 +58,7 @@ describe('RolesController', () => {
     });
 
     describe('when findAll is called', () => {
-      let roles: Roles[];
+      let roles: EntityModel<Roles>[];
 
       beforeEach(async () => {
         roles = (await controller.findAll()).response;
@@ -80,7 +80,7 @@ describe('RolesController', () => {
     });
 
     describe('when findByPk is called', () => {
-      let role: Roles;
+      let role: EntityModel<Roles>;
 
       beforeEach(async () => {
         role = (await controller.findByPk(rolesStub().id)).response;
@@ -135,7 +135,7 @@ describe('RolesController', () => {
       });
 
       it('should return a affected count', () => {
-        expect(result).toEqual({ affectedCount: 1 });
+        expect(result).toEqual({affectedCount: 1});
       });
     });
   });

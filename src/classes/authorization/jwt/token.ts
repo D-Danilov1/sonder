@@ -1,4 +1,4 @@
-import { Users } from '../components/usersComponent/users/models/users.model';
+import { Users } from '../../../components/usersComponent/users/models/users.model';
 import { JwtServiceGenerator } from './jwt-service-generator';
 import { ConfigService } from '@nestjs/config';
 

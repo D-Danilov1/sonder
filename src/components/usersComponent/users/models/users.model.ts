@@ -1,14 +1,7 @@
-import {
-  BelongsToMany,
-  Column,
-  DataType,
-  Model,
-  Table,
-} from 'sequelize-typescript';
-import { ApiProperty } from '@nestjs/swagger';
+import { BelongsToMany, Column, DataType, Table } from 'sequelize-typescript';
 import { Roles } from '../../roles/models/roles.model';
 import { UsersRoles } from '../../many-to-many/users-roles.model';
-import { EntityModel } from '../../../../database/entity.model';
+import { EntityModel } from '../../../../classes/core/entity.model';
 
 interface UserCreationAttrs {
   id: string;
@@ -16,12 +9,8 @@ interface UserCreationAttrs {
   password: string;
 }
 
-@Table({ tableName: 'Users' })
+@Table({tableName: 'Users'})
 export class Users extends EntityModel<Users, UserCreationAttrs> {
-  @ApiProperty({
-    example: '4b6bea0b-62d4-40a9-a350-ae40632dc15f',
-    description: 'Unique identifier',
-  })
   @Column({
     type: DataType.STRING,
     unique: true,
@@ -29,12 +18,10 @@ export class Users extends EntityModel<Users, UserCreationAttrs> {
   })
   id: string;
 
-  @ApiProperty({ example: 'example@gmail.com', description: 'Email address' })
-  @Column({ type: DataType.STRING, unique: true, allowNull: false })
+  @Column({type: DataType.STRING, unique: true, allowNull: false})
   email: string;
 
-  @ApiProperty({ description: 'User password' })
-  @Column({ type: DataType.STRING, allowNull: false })
+  @Column({type: DataType.STRING, allowNull: false})
   password: string;
 
   @BelongsToMany(() => Roles, () => UsersRoles)

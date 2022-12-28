@@ -7,17 +7,18 @@ import { SaveRefreshTokensDto } from './dto/save-refresh-tokens.dto';
 export class RefreshTokensService {
   constructor(
     @InjectModel(RefreshTokens) private repository: typeof RefreshTokens,
-  ) {}
+  ) {
+  }
 
   async saveRefreshToken(dto: SaveRefreshTokensDto) {
     const token: RefreshTokens = await this.repository.findOne({
-      where: { userID: dto.userID },
+      where: {userID: dto.userID},
     });
 
     if (token) {
       return await this.repository.update(
-        { token: dto.token },
-        { where: { userID: token.userID } },
+        {token: dto.token},
+        {where: {userID: token.userID}},
       );
     }
 
@@ -25,10 +26,10 @@ export class RefreshTokensService {
   }
 
   async findToken(refreshToken: string) {
-    return await this.repository.findOne({ where: { token: refreshToken } });
+    return await this.repository.findOne({where: {token: refreshToken}});
   }
 
   async destroy(refreshToken: string) {
-    return await this.repository.destroy({ where: { token: refreshToken } });
+    return await this.repository.destroy({where: {token: refreshToken}});
   }
 }

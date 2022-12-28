@@ -6,13 +6,12 @@ import { AppGenerator } from '../../classes/app-generator';
 import { TokenGenerator } from '../../classes/token-generator';
 import { AppInitializer } from '../../classes/app-initializer';
 import { UsersCategories } from '../../../src/components/usersComponent/users-categories/models/users-categories.model';
-import { EntityModel } from '../../../src/database/entity.model';
 
 describe('UsersCategories (e2e)', () => {
   let app: INestApplication;
   let tokenAdmin: string;
   let tokenUser: string;
-  let usersCategory: EntityModel<UsersCategories>;
+  let usersCategory: UsersCategories;
 
   beforeAll(async () => {
     AppInitializer.jestSetTimeout();
@@ -23,38 +22,43 @@ describe('UsersCategories (e2e)', () => {
   });
 
   describe('/api/users-categories (POST)', () => {
-    it('should create a usersCategory and return status HttpStatus.CREATED because it a Admin', async () => {
-      await request(app.getHttpServer())
-        .post('/api/users-categories')
-        .set('Authorization', 'Bearer ' + tokenAdmin)
-        .send(usersCategoriesCreateStub())
-        .expect(HttpStatus.CREATED)
-        .then((response) => {
-          usersCategory = response.body.response;
-        });
-    });
+    it(
+      'should create a usersCategory and return status HttpStatus.CREATED because it a Admin',
+      async () => {
+        await request(app.getHttpServer())
+          .post('/api/users-categories')
+          .set('Authorization', 'Bearer ' + tokenAdmin)
+          .send(usersCategoriesCreateStub())
+          .expect(HttpStatus.CREATED)
+          .then((response) => {
+            usersCategory = response.body.response;
+          });
+      });
 
-    it('should return status HttpStatus.FORBIDDEN because it a User', async () => {
-      await request(app.getHttpServer())
-        .get('/api/users-categories')
-        .set('Authorization', 'Bearer ' + tokenUser)
-        .send(usersCategoriesCreateStub())
-        .expect(HttpStatus.FORBIDDEN);
-    });
+    it('should return status HttpStatus.FORBIDDEN because it a User',
+      async () => {
+        await request(app.getHttpServer())
+          .get('/api/users-categories')
+          .set('Authorization', 'Bearer ' + tokenUser)
+          .send(usersCategoriesCreateStub())
+          .expect(HttpStatus.FORBIDDEN);
+      });
 
-    it('should return status HttpStatus.FORBIDDEN because it a Unknown', async () => {
-      await request(app.getHttpServer())
-        .get('/api/users-categories')
-        .send(usersCategoriesCreateStub())
-        .expect(HttpStatus.FORBIDDEN);
-    });
+    it('should return status HttpStatus.FORBIDDEN because it a Unknown',
+      async () => {
+        await request(app.getHttpServer())
+          .get('/api/users-categories')
+          .send(usersCategoriesCreateStub())
+          .expect(HttpStatus.FORBIDDEN);
+      });
 
-    it('should return status HttpStatus.BAD_REQUEST because it empty request', async () => {
-      await request(app.getHttpServer())
-        .post('/api/users-categories')
-        .set('Authorization', 'Bearer ' + tokenAdmin)
-        .expect(HttpStatus.BAD_REQUEST);
-    });
+    it('should return status HttpStatus.BAD_REQUEST because it empty request',
+      async () => {
+        await request(app.getHttpServer())
+          .post('/api/users-categories')
+          .set('Authorization', 'Bearer ' + tokenAdmin)
+          .expect(HttpStatus.BAD_REQUEST);
+      });
   });
 
   describe('/api/users-categories (PUT)', () => {
@@ -84,24 +88,26 @@ describe('UsersCategories (e2e)', () => {
         .expect(HttpStatus.FORBIDDEN);
     });
 
-    it('should return status BAD_REQUEST because it empty request', async () => {
-      await request(app.getHttpServer())
-        .put('/api/users-categories')
-        .set('Authorization', 'Bearer ' + tokenAdmin)
-        .expect(HttpStatus.BAD_REQUEST);
-    });
+    it('should return status BAD_REQUEST because it empty request',
+      async () => {
+        await request(app.getHttpServer())
+          .put('/api/users-categories')
+          .set('Authorization', 'Bearer ' + tokenAdmin)
+          .expect(HttpStatus.BAD_REQUEST);
+      });
   });
 
   describe('/api/users-categories (GET)', () => {
-    it('should return users-categories and status OK because it a Admin', async () => {
-      await request(app.getHttpServer())
-        .get('/api/users-categories')
-        .set('Authorization', 'Bearer ' + tokenAdmin)
-        .expect(HttpStatus.OK)
-        .then((response) => {
-          expect(response.body.response[0]).toEqual(usersCategoriesStub());
-        });
-    });
+    it('should return users-categories and status OK because it a Admin',
+      async () => {
+        await request(app.getHttpServer())
+          .get('/api/users-categories')
+          .set('Authorization', 'Bearer ' + tokenAdmin)
+          .expect(HttpStatus.OK)
+          .then((response) => {
+            expect(response.body.response[0]).toEqual(usersCategoriesStub());
+          });
+      });
 
     it('should return status FORBIDDEN because it a User', async () => {
       await request(app.getHttpServer())
@@ -118,15 +124,16 @@ describe('UsersCategories (e2e)', () => {
   });
 
   describe('/api/users-categories/:id (GET)', () => {
-    it('should return a usersCategory and status OK because it a Admin', async () => {
-      await request(app.getHttpServer())
-        .get('/api/users-categories/' + usersCategory.id)
-        .set('Authorization', 'Bearer ' + tokenAdmin)
-        .expect(HttpStatus.OK)
-        .then((response) => {
-          expect(response.body.response).toEqual(usersCategoriesStub());
-        });
-    });
+    it('should return a usersCategory and status OK because it a Admin',
+      async () => {
+        await request(app.getHttpServer())
+          .get('/api/users-categories/' + usersCategory.id)
+          .set('Authorization', 'Bearer ' + tokenAdmin)
+          .expect(HttpStatus.OK)
+          .then((response) => {
+            expect(response.body.response).toEqual(usersCategoriesStub());
+          });
+      });
 
     it('should return status FORBIDDEN because it a User', async () => {
       await request(app.getHttpServer())
@@ -143,15 +150,16 @@ describe('UsersCategories (e2e)', () => {
   });
 
   describe('/api/users-categories/name/:name (GET)', () => {
-    it('should return a usersCategory and status OK because it a Admin', async () => {
-      await request(app.getHttpServer())
-        .get('/api/users-categories/name/' + usersCategory.name)
-        .set('Authorization', 'Bearer ' + tokenAdmin)
-        .expect(HttpStatus.OK)
-        .then((response) => {
-          expect(response.body.response).toEqual(usersCategoriesStub());
-        });
-    });
+    it('should return a usersCategory and status OK because it a Admin',
+      async () => {
+        await request(app.getHttpServer())
+          .get('/api/users-categories/name/' + usersCategory.name)
+          .set('Authorization', 'Bearer ' + tokenAdmin)
+          .expect(HttpStatus.OK)
+          .then((response) => {
+            expect(response.body.response).toEqual(usersCategoriesStub());
+          });
+      });
 
     it('should return status FORBIDDEN because it a User', async () => {
       await request(app.getHttpServer())

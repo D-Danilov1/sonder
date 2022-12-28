@@ -38,14 +38,11 @@ describe('Authorization (e2e)', () => {
   });
 
   it('should delete a user', async () => {
-    await request(app.getHttpServer())
-      .delete('/api/users/' + userID)
-      .set(
-        'Authorization',
-        'Bearer ' + (TokenGenerator.getSyntheticToken()),
-      )
-      .then((response) => {
-        expect(response.body.response).toEqual(1);
-      });
+    await request(app.getHttpServer()).delete('/api/users/' + userID).set(
+      'Authorization',
+      'Bearer ' + (TokenGenerator.getSyntheticToken()),
+    ).then((response) => {
+      expect(response.body.response).toEqual(1);
+    });
   });
 });

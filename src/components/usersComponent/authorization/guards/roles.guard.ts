@@ -1,21 +1,15 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { ROLES_KEY } from '../decorators/roles-auth.decorator';
 import { Observable } from 'rxjs';
-import { Token } from '../../../../classes/token';
+import { Token } from '../../../../classes/authorization/jwt/token';
+import { ROLES_KEY } from '../../../../decorators/roles-guards.decorator';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
   private token: Token;
 
   constructor(private reflector: Reflector) {
+    // TODO: вынести в конструктор
     this.token = new Token();
   }
 

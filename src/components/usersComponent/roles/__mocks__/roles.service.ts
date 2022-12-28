@@ -5,6 +5,6 @@ export const RolesService = jest.fn().mockReturnValue({
   findAll: jest.fn().mockResolvedValue([rolesStub()]),
   findByPk: jest.fn().mockResolvedValue(rolesStub()),
   findByName: jest.fn().mockResolvedValue(rolesStub()),
-  update: jest.fn().mockResolvedValue({ affectedCount: 1 }),
+  update: jest.fn().mockResolvedValue({affectedCount: 1}),
   destroy: jest.fn().mockResolvedValue(1),
 });

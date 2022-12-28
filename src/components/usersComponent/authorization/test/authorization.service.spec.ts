@@ -7,6 +7,7 @@ import { Users } from '../../users/models/users.model';
 import { usersStub } from '../../users/test/stubs/users.stub';
 import { RefreshTokensService } from '../../refresh-tokens/refresh-tokens.service';
 import { mockRefreshTokensService } from '../__mocks__/refresh-tokens.service';
+import { EntityModel } from '../../../../classes/core/entity.model';
 
 describe('AuthorizationService', () => {
   let service: AuthorizationService;
@@ -65,7 +66,7 @@ describe('AuthorizationService', () => {
     });
 
     describe('when registration is called', () => {
-      let user: Users;
+      let user: EntityModel<Users>;
 
       beforeEach(async () => {
         user = await service.registration({

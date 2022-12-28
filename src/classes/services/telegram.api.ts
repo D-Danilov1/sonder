@@ -1,16 +1,16 @@
 import * as TelegramBot from 'node-telegram-bot-api';
-import { CLIENT_URL, TELEGRAM_TOKEN } from '../constants/server.constants';
+import { CLIENT_URL, TELEGRAM_TOKEN } from '../../constants/server.constants';
 
-export class Telegram {
+export class TelegramApi {
   private readonly bot: TelegramBot;
   private readonly clientUrl: string = CLIENT_URL;
 
   constructor() {
-    this.bot = new TelegramBot(TELEGRAM_TOKEN, { polling: true });
+    this.bot = new TelegramBot(TELEGRAM_TOKEN, {polling: true});
   }
 
   getBot(): TelegramBot {
-    return this.bot
+    return this.bot;
   }
 
   async messageResponse(msg: TelegramBot.messages) {
@@ -23,7 +23,7 @@ export class Telegram {
           parse_mode: 'Markdown',
           reply_markup: {
             inline_keyboard: [
-              [{ text: 'Сделать заказ', web_app: { url: this.clientUrl } }],
+              [{text: 'Сделать заказ', web_app: {url: this.clientUrl}}],
             ],
           },
         });

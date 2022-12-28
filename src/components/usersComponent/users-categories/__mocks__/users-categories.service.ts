@@ -5,6 +5,6 @@ export const UsersCategoriesService = jest.fn().mockReturnValue({
   findAll: jest.fn().mockResolvedValue([usersCategoriesStub()]),
   findByPk: jest.fn().mockResolvedValue(usersCategoriesStub()),
   findByName: jest.fn().mockResolvedValue(usersCategoriesStub()),
-  update: jest.fn().mockResolvedValue({ affectedCount: 1 }),
+  update: jest.fn().mockResolvedValue({affectedCount: 1}),
   destroy: jest.fn().mockResolvedValue(1),
 });

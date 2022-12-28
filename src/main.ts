@@ -1,23 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
-import { Telegram } from './classes/telegram';
+import { TelegramApi } from './classes/services/telegram.api';
 import * as TelegramBot from 'node-telegram-bot-api';
 
-const telegram = new Telegram();
-telegram.getBot().on('message', (msg: TelegramBot.messages) => telegram.messageResponse(msg));
+const telegram = new TelegramApi();
+telegram.getBot()
+  .on('message', (msg: TelegramBot.messages) => telegram.messageResponse(msg));
 
 async function bootstrap() {
   const PORT = process.env.PORT || 5000;
   const app = await NestFactory.create(AppModule);
-
-  const swaggerConfig = new DocumentBuilder().setTitle('Finance').
-    setDescription('Документация REST API').
-    setVersion('1.0.0').
-    build();
-  const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('/api/docs', app, document);
 
   app.use(cookieParser());
   app.enableCors({

@@ -10,3 +10,13 @@ export const usersStub = (): Users => {
     updatedAt: expect.any(String),
   };
 };
+
+export const usersStubWithoutRoles = (): Users => {
+  return <Users>{
+    id: expect.any(String),
+    email: expect.any(String),
+    password: expect.any(String),
+    createdAt: expect.any(String),
+    updatedAt: expect.any(String),
+  };
+};

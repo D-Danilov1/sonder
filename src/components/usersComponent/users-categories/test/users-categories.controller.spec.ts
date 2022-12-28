@@ -6,7 +6,7 @@ import { UsersCategories } from '../models/users-categories.model';
 import { usersCategoriesCreateStub } from './stubs/users-categories-create.stub';
 import { usersCategoriesStub } from './stubs/users-categories.stub';
 import { usersCategoriesUpdateStub } from './stubs/users-categories-update.stub';
-import { EntityModel } from '../../../../database/entity.model';
+import { EntityModel } from '../../../../classes/core/entity.model';
 
 jest.mock('../users-categories.service');
 
@@ -41,8 +41,8 @@ describe('UsersCategoriesController', () => {
       let usersCategory: EntityModel<UsersCategories>;
 
       beforeEach(async () => {
-        usersCategory = (await controller.create(usersCategoriesCreateStub()))
-          .response;
+        usersCategory = (await controller.create(
+          usersCategoriesCreateStub())).response;
       });
 
       it('should call usersCategoriesService', () => {
@@ -61,7 +61,7 @@ describe('UsersCategoriesController', () => {
     });
 
     describe('when findAll is called', () => {
-      let usersCategories: UsersCategories[];
+      let usersCategories: EntityModel<UsersCategories>[];
 
       beforeEach(async () => {
         usersCategories = (await controller.findAll()).response;
@@ -83,11 +83,11 @@ describe('UsersCategoriesController', () => {
     });
 
     describe('when findByPk is called', () => {
-      let usersCategory: UsersCategories;
+      let usersCategory: EntityModel<UsersCategories>;
 
       beforeEach(async () => {
-        usersCategory = (await controller.findByPk(usersCategoriesStub().id))
-          .response;
+        usersCategory = (await controller.findByPk(
+          usersCategoriesStub().id)).response;
       });
 
       it('should call usersCategoriesService', () => {
@@ -133,8 +133,8 @@ describe('UsersCategoriesController', () => {
       let result;
 
       beforeEach(async () => {
-        result = (await controller.update(usersCategoriesUpdateStub()))
-          .response;
+        result = (await controller.update(
+          usersCategoriesUpdateStub())).response;
       });
 
       it('should call usersCategoriesService', () => {
@@ -142,7 +142,7 @@ describe('UsersCategoriesController', () => {
       });
 
       it('should return a affected count', () => {
-        expect(result).toEqual({ affectedCount: 1 });
+        expect(result).toEqual({affectedCount: 1});
       });
     });
   });

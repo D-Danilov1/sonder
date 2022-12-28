@@ -8,6 +8,6 @@ export const UsersService = jest.fn().mockReturnValue({
   findByEmail: jest.fn().mockResolvedValue(usersStub()),
   update: jest.fn().mockResolvedValue([1]),
   destroy: jest.fn().mockResolvedValue(1),
-  addRoleToUser: jest.fn().mockResolvedValue({ id: 1, ...roleToUserStub() }),
+  addRoleToUser: jest.fn().mockResolvedValue({id: 1, ...roleToUserStub()}),
   removeRoleToUser: jest.fn().mockResolvedValue(1),
 });

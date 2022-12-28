@@ -7,6 +7,7 @@ import { Users } from '../../users/models/users.model';
 import { usersCreateStub } from '../../users/test/stubs/users-create.stub';
 import { usersStub } from '../../users/test/stubs/users.stub';
 import { passthrough } from '../../../../typing/response-setting.types';
+import { EntityModel } from '../../../../classes/core/entity.model';
 
 jest.mock('../authorization.service');
 
@@ -54,7 +55,7 @@ describe('AuthorizationController', () => {
     });
 
     describe('when registration is called', () => {
-      let users: Users;
+      let users: EntityModel<Users>;
 
       beforeEach(async () => {
         users = (await controller.registration(usersCreateStub())).response;

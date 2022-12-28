@@ -6,6 +6,5 @@ export const rolesStub = (): Roles => {
     name: expect.any(String),
     createdAt: expect.any(String),
     updatedAt: expect.any(String),
-    users: expect.any(Array),
   };
 };

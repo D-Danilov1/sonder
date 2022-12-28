@@ -3,7 +3,7 @@ import { CreateUsersDto } from '../users/dto/create-users.dto';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcryptjs';
 import { AuthorizationDto } from './dto/authorization.dto';
-import { Token } from '../../../classes/token';
+import { Token } from '../../../classes/authorization/jwt/token';
 import { RefreshTokensService } from '../refresh-tokens/refresh-tokens.service';
 
 @Injectable()

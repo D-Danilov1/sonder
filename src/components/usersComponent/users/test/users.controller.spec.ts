@@ -7,6 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { usersUpdateStub } from './stubs/users-update.stub';
 import { usersCreateStub } from './stubs/users-create.stub';
 import { roleToUserStub } from './stubs/role-to-user.stub';
+import { EntityModel } from '../../../../classes/core/entity.model';
 
 jest.mock('../users.service');
 
@@ -36,7 +37,7 @@ describe('UsersController', () => {
     });
 
     describe('when create is called', () => {
-      let user: Users;
+      let user: EntityModel<Users>;
 
       beforeEach(async () => {
         user = (await controller.create(usersCreateStub())).response;
@@ -58,7 +59,7 @@ describe('UsersController', () => {
     });
 
     describe('when findAll is called', () => {
-      let users: Users[];
+      let users: EntityModel<Users>[];
 
       beforeEach(async () => {
         users = (await controller.findAll()).response;
@@ -80,7 +81,7 @@ describe('UsersController', () => {
     });
 
     describe('when findByPk is called', () => {
-      let user: Users;
+      let user: EntityModel<Users>;
 
       beforeEach(async () => {
         user = (await controller.findByPk(usersStub().id)).response;
@@ -179,7 +180,7 @@ describe('UsersController', () => {
       });
 
       it('should return a affected count', () => {
-        expect(result).toEqual({ id: 1, ...roleToUserStub() });
+        expect(result).toEqual({id: 1, ...roleToUserStub()});
       });
     });
   });

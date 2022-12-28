@@ -6,7 +6,7 @@ import { RolesService } from '../roles.service';
 import { Roles } from '../models/roles.model';
 import { rolesCreateStub } from './stubs/roles-create.stub';
 import { rolesUpdateStub } from './stubs/roles-update.stub';
-import { EntityModel } from '../../../../database/entity.model';
+import { EntityModel } from '../../../../classes/core/entity.model';
 
 describe('UsersService', () => {
   let service: RolesService;
@@ -59,7 +59,7 @@ describe('UsersService', () => {
     });
 
     describe('when findAll is called', () => {
-      let roles: Roles[];
+      let roles: EntityModel<Roles>[];
 
       beforeEach(async () => {
         roles = await service.findAll();
@@ -81,7 +81,7 @@ describe('UsersService', () => {
     });
 
     describe('when findByPk is called', () => {
-      let role: Roles;
+      let role: EntityModel<Roles>;
 
       beforeEach(async () => {
         role = await service.findByPk(rolesStub().id);
@@ -125,7 +125,7 @@ describe('UsersService', () => {
     });
 
     describe('when update is called', () => {
-      let result: number;
+      let result: number[];
 
       beforeEach(async () => {
         result = await service.update(rolesUpdateStub());

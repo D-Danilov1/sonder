@@ -1,22 +1,14 @@
-import {
-  BelongsTo,
-  Column,
-  DataType,
-  ForeignKey,
-  Table,
-} from 'sequelize-typescript';
-import { ApiProperty } from '@nestjs/swagger';
+import { BelongsTo, Column, DataType, ForeignKey, Table } from 'sequelize-typescript';
 import { Users } from '../../users/models/users.model';
-import { EntityModel } from '../../../../database/entity.model';
+import { EntityModel } from '../../../../classes/core/entity.model';
 
 interface RefreshTokenCreationAttrs {
   userID: string;
   token: string;
 }
 
-@Table({ tableName: 'RefreshTokens' })
+@Table({tableName: 'RefreshTokens'})
 export class RefreshTokens extends EntityModel<RefreshTokens, RefreshTokenCreationAttrs> {
-  @ApiProperty({ example: '1', description: 'Unique identifier' })
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -25,19 +17,11 @@ export class RefreshTokens extends EntityModel<RefreshTokens, RefreshTokenCreati
   })
   id: number;
 
-  @ApiProperty({
-    example: 'eyJhbGciOi4b6bea0b...',
-    description: 'Refresh token',
-  })
-  @Column({ type: DataType.STRING, unique: true })
+  @Column({type: DataType.STRING, unique: true})
   token: string;
 
-  @ApiProperty({
-    example: '4b6bea0b-62d4-40a9-a350-ae40632dc15f',
-    description: 'User ID',
-  })
   @ForeignKey(() => Users)
-  @Column({ type: DataType.STRING })
+  @Column({type: DataType.STRING})
   userID: string;
 
   @BelongsTo(() => Users)
