@@ -48,7 +48,7 @@ describe('Users (e2e)', () => {
         .set('Authorization', 'Bearer ' + tokenAdmin)
         .send({id: user.id})
         .then((response) => {
-          // FIXME: пока нечего менять, нудно потом добавить что-нибудь
+          // FIXME: пока нечего менять, нужно потом добавить что-нибудь
           expect(response.body.response).toEqual([0]);
         });
     });

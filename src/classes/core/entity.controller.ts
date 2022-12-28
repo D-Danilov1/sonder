@@ -5,6 +5,7 @@ import { EntityModel } from './entity.model';
 import { EntityService } from './entity.service';
 import { RolesGuards } from '../../decorators/roles-guards.decorator';
 
+// TODO: внедрить
 export abstract class EntityController {
   protected constructor(private service: EntityService) {
   }
