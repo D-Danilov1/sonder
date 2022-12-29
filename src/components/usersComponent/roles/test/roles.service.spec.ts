@@ -8,7 +8,7 @@ import { rolesCreateStub } from './stubs/roles-create.stub';
 import { rolesUpdateStub } from './stubs/roles-update.stub';
 import { EntityModel } from '../../../../classes/core/entity.model';
 
-describe('UsersService', () => {
+describe('RolesService', () => {
   let service: RolesService;
   let model: typeof Roles;
 

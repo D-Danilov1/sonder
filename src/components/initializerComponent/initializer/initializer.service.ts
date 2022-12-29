@@ -4,7 +4,6 @@ import { ROLES } from '../../../constants/roles.constants';
 import { USERS_CATEGORIES } from '../../../constants/users-categories.constants';
 import { UsersService } from '../../usersComponent/users/users.service';
 import { UsersCategoriesService } from '../../usersComponent/users-categories/users-categories.service';
-import { EntityModel } from '../../../classes/core/entity.model';
 import { Users } from '../../usersComponent/users/models/users.model';
 
 // TODO: вынести всё в Seeds
@@ -86,15 +85,13 @@ export class InitializerService {
     const account = await this.usersService.findByEmail('admin@gmail.com');
 
     if (account === null) {
-      const user: EntityModel<Users> = await this.usersService.create({
+      const user: Users = await this.usersService.create({
         email: 'admin@gmail.com',
         password: 'adminAdmin',
       });
 
       await this.usersService.addRoleToUser({
         roleName: ROLES.ADMIN,
-        // FIXME: разобраться с типами
-        // @ts-ignore
         userEmail: user.email,
       });
     }
