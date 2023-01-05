@@ -5,7 +5,6 @@ import { UsersCategories } from './models/users-categories.model';
 import { CreateUsersCategoriesDto } from './dto/create-users-categories.dto';
 import { UpdateUsersCategoriesDto } from './dto/update-users-categories.dto';
 import { ROLES } from '../../../constants/roles.constants';
-import { EntityModel } from '../../../classes/core/entity.model';
 import { RolesGuards } from '../../../decorators/roles-guards.decorator';
 
 @Controller('/api/users-categories')
@@ -18,7 +17,7 @@ export class UsersCategoriesController {
   @Post()
   async create(
     @Body() dto: CreateUsersCategoriesDto,
-  ): Promise<{response: EntityModel<UsersCategories>; statusCode: number}> {
+  ): Promise<{response: UsersCategories; statusCode: number}> {
     return {
       statusCode: HttpStatus.CREATED,
       response: await this.service.create(dto),
@@ -27,10 +26,7 @@ export class UsersCategoriesController {
 
   @RolesGuards(ROLES.ADMIN)
   @Get()
-  async findAll(): Promise<{
-    response: EntityModel<UsersCategories>[];
-    statusCode: number;
-  }> {
+  async findAll(): Promise<{response: UsersCategories[]; statusCode: number;}> {
     return {
       statusCode: HttpStatus.OK,
       response: await this.service.findAll(),
@@ -41,7 +37,7 @@ export class UsersCategoriesController {
   @Get('/:id')
   async findByPk(
     @Param('id') id: number,
-  ): Promise<{response: EntityModel<UsersCategories>; statusCode: number}> {
+  ): Promise<{response: UsersCategories; statusCode: number}> {
     return {
       statusCode: HttpStatus.OK,
       response: await this.service.findByPk(id),

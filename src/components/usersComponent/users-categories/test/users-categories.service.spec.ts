@@ -5,7 +5,6 @@ import { UsersCategories } from '../models/users-categories.model';
 import { UsersCategoriesModel } from '../__mocks__/users-categories.model';
 import { usersCategoriesCreateStub } from './stubs/users-categories-create.stub';
 import { usersCategoriesStub } from './stubs/users-categories.stub';
-import { EntityModel } from '../../../../classes/core/entity.model';
 
 describe('UsersCategoriesService', () => {
   let service: UsersCategoriesService;
@@ -36,7 +35,7 @@ describe('UsersCategoriesService', () => {
     });
 
     describe('when create is called', () => {
-      let usersCategory: EntityModel<UsersCategories>;
+      let usersCategory: UsersCategories;
 
       beforeEach(async () => {
         usersCategory = await service.create(usersCategoriesCreateStub());
@@ -58,7 +57,7 @@ describe('UsersCategoriesService', () => {
     });
 
     describe('when findAll is called', () => {
-      let usersCategories: EntityModel<UsersCategories>[];
+      let usersCategories: UsersCategories[];
 
       beforeEach(async () => {
         usersCategories = await service.findAll();
@@ -80,7 +79,7 @@ describe('UsersCategoriesService', () => {
     });
 
     describe('when findByPk is called', () => {
-      let usersCategory: EntityModel<UsersCategories>;
+      let usersCategory: UsersCategories;
 
       beforeEach(async () => {
         usersCategory = await service.findByPk(usersCategoriesStub().id);

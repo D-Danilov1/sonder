@@ -7,8 +7,7 @@ import { Cookies } from '../../../classes/authorization/jwt/cookies';
 import { passthrough } from '../../../typing/response-setting.types';
 import { AuthorizationResponse, RefreshResponse } from '../../../typing/authorization.types';
 import { Users } from '../users/models/users.model';
-import { EntityModel } from '../../../classes/core/entity.model';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 
 @Controller('/api')
 export class AuthorizationController {
@@ -19,7 +18,7 @@ export class AuthorizationController {
   @Post('/login')
   async login(
     @Body() dto: AuthorizationDto,
-    @Res(passthrough) response,
+    @Res(passthrough) response: Response,
   ): Promise<{
     response: AuthorizationResponse;
     statusCode: HttpStatus.CREATED;
@@ -38,7 +37,7 @@ export class AuthorizationController {
   @Post('/registration')
   async registration(
     @Body() dto: CreateUsersDto,
-  ): Promise<{response: EntityModel<Users>; statusCode: number}> {
+  ): Promise<{response: Users; statusCode: number}> {
     return {
       statusCode: HttpStatus.CREATED,
       response: await this.service.registration(dto),
@@ -49,7 +48,7 @@ export class AuthorizationController {
   @Delete('/logout')
   async logout(
     @Req() request: Request,
-    @Res(passthrough) response,
+    @Res(passthrough) response: Response,
   ): Promise<{response: number; statusCode: HttpStatus.OK}> {
     const {refreshToken} = request.cookies;
 

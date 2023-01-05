@@ -5,7 +5,7 @@ import { findByName } from '../../../traits/find-by.trait';
 import { UsersCategories } from './models/users-categories.model';
 
 @Injectable()
-export class UsersCategoriesService extends EntityService {
+export class UsersCategoriesService extends EntityService<UsersCategories> {
   constructor(@InjectModel(UsersCategories) protected repository: typeof UsersCategories) {
     super(repository);
   }

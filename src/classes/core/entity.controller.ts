@@ -1,21 +1,20 @@
 import { Body, Delete, Get, HttpStatus, Param, Post, Put, UsePipes } from '@nestjs/common';
 import { ValidationPipe } from '../../pipes/validation.pipe';
 import { ROLES } from '../../constants/roles.constants';
-import { EntityModel } from './entity.model';
 import { EntityService } from './entity.service';
 import { RolesGuards } from '../../decorators/roles-guards.decorator';
 
 // TODO: внедрить
-export abstract class EntityController {
-  protected constructor(private service: EntityService) {
+export abstract class EntityController<M, CMD, UMD> {
+  protected constructor(private service: EntityService<M>) {
   }
 
   @UsePipes(ValidationPipe)
   @RolesGuards(ROLES.ADMIN)
   @Post()
   async create(
-    @Body() dto,
-  ): Promise<{response: EntityModel<any>; statusCode: HttpStatus.CREATED}> {
+    @Body() dto: CMD,
+  ): Promise<{response: M; statusCode: HttpStatus.CREATED}> {
     return {
       statusCode: HttpStatus.CREATED,
       response: await this.service.create(dto),
@@ -24,7 +23,7 @@ export abstract class EntityController {
 
   @RolesGuards(ROLES.ADMIN)
   @Get()
-  async findAll(): Promise<{response: EntityModel<any>[]; statusCode: number}> {
+  async findAll(): Promise<{response: M[]; statusCode: number}> {
     return {
       statusCode: HttpStatus.OK,
       response: await this.service.findAll(),
@@ -35,7 +34,7 @@ export abstract class EntityController {
   @Get('/:id')
   async findByPk(
     @Param('id') id: number,
-  ): Promise<{response: EntityModel<any>; statusCode: number}> {
+  ): Promise<{response: M; statusCode: number}> {
     return {
       statusCode: HttpStatus.OK,
       response: await this.service.findByPk(id),
@@ -46,7 +45,7 @@ export abstract class EntityController {
   @RolesGuards(ROLES.ADMIN)
   @Put()
   async update(
-    @Body() dto,
+    @Body() dto: UMD,
   ): Promise<{response: number[]; statusCode: number}> {
     return {
       statusCode: HttpStatus.OK,

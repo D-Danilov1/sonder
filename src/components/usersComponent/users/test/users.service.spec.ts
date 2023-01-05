@@ -9,7 +9,6 @@ import { RolesService } from '../../roles/roles.service';
 import { usersStub } from './stubs/users.stub';
 import { usersUpdateStub } from './stubs/users-update.stub';
 import { roleToUserStub } from './stubs/role-to-user.stub';
-import { EntityModel } from '../../../../classes/core/entity.model';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -44,7 +43,7 @@ describe('UsersService', () => {
     });
 
     describe('when create is called', () => {
-      let user: EntityModel<Users>;
+      let user: Users;
       let createSpy;
 
       beforeEach(async () => {
@@ -70,7 +69,7 @@ describe('UsersService', () => {
     });
 
     describe('when findAll is called', () => {
-      let users: EntityModel<Users>[];
+      let users: Users[];
 
       beforeEach(async () => {
         users = await service.findAll();
@@ -92,7 +91,7 @@ describe('UsersService', () => {
     });
 
     describe('when findByPk is called', () => {
-      let user: EntityModel<Users>;
+      let user: Users;
 
       beforeEach(async () => {
         user = await service.findByPk(usersStub().id);

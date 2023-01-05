@@ -6,7 +6,6 @@ import { RoleToUserDto } from './dto/role-to-user.dto';
 import { UpdateUsersDto } from './dto/update-users.dto';
 import { ValidationPipe } from '../../../pipes/validation.pipe';
 import { ROLES } from '../../../constants/roles.constants';
-import { EntityModel } from '../../../classes/core/entity.model';
 import { RolesGuards } from '../../../decorators/roles-guards.decorator';
 
 @Controller('/api/users')
@@ -18,7 +17,7 @@ export class UsersController {
   @Post()
   async create(
     @Body() dto: CreateUsersDto,
-  ): Promise<{response: EntityModel<Users>; statusCode: number}> {
+  ): Promise<{response: Users; statusCode: number}> {
     return {
       statusCode: HttpStatus.CREATED,
       response: await this.service.create(dto),
@@ -27,7 +26,7 @@ export class UsersController {
 
   @RolesGuards(ROLES.ADMIN)
   @Get()
-  async findAll(): Promise<{response: EntityModel<Users>[]; statusCode: number}> {
+  async findAll(): Promise<{response: Users[]; statusCode: number}> {
     return {
       statusCode: HttpStatus.OK,
       response: await this.service.findAll(),
@@ -38,7 +37,7 @@ export class UsersController {
   @Get('/:id')
   async findByPk(
     @Param('id') id: string,
-  ): Promise<{response: EntityModel<Users>; statusCode: number}> {
+  ): Promise<{response: Users; statusCode: number}> {
     return {
       statusCode: HttpStatus.OK,
       response: await this.service.findByPk(id),

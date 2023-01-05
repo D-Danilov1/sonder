@@ -6,7 +6,6 @@ import { UsersCategories } from '../models/users-categories.model';
 import { usersCategoriesCreateStub } from './stubs/users-categories-create.stub';
 import { usersCategoriesStub } from './stubs/users-categories.stub';
 import { usersCategoriesUpdateStub } from './stubs/users-categories-update.stub';
-import { EntityModel } from '../../../../classes/core/entity.model';
 
 jest.mock('../users-categories.service');
 
@@ -38,7 +37,7 @@ describe('UsersCategoriesController', () => {
     });
 
     describe('when create is called', () => {
-      let usersCategory: EntityModel<UsersCategories>;
+      let usersCategory: UsersCategories;
 
       beforeEach(async () => {
         usersCategory = (await controller.create(
@@ -61,7 +60,7 @@ describe('UsersCategoriesController', () => {
     });
 
     describe('when findAll is called', () => {
-      let usersCategories: EntityModel<UsersCategories>[];
+      let usersCategories: UsersCategories[];
 
       beforeEach(async () => {
         usersCategories = (await controller.findAll()).response;
@@ -83,7 +82,7 @@ describe('UsersCategoriesController', () => {
     });
 
     describe('when findByPk is called', () => {
-      let usersCategory: EntityModel<UsersCategories>;
+      let usersCategory: UsersCategories;
 
       beforeEach(async () => {
         usersCategory = (await controller.findByPk(

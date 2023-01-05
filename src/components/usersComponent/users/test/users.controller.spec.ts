@@ -7,7 +7,6 @@ import { JwtService } from '@nestjs/jwt';
 import { usersUpdateStub } from './stubs/users-update.stub';
 import { usersCreateStub } from './stubs/users-create.stub';
 import { roleToUserStub } from './stubs/role-to-user.stub';
-import { EntityModel } from '../../../../classes/core/entity.model';
 
 jest.mock('../users.service');
 
@@ -37,7 +36,7 @@ describe('UsersController', () => {
     });
 
     describe('when create is called', () => {
-      let user: EntityModel<Users>;
+      let user: Users;
 
       beforeEach(async () => {
         user = (await controller.create(usersCreateStub())).response;
@@ -59,7 +58,7 @@ describe('UsersController', () => {
     });
 
     describe('when findAll is called', () => {
-      let users: EntityModel<Users>[];
+      let users: Users[];
 
       beforeEach(async () => {
         users = (await controller.findAll()).response;
@@ -81,7 +80,7 @@ describe('UsersController', () => {
     });
 
     describe('when findByPk is called', () => {
-      let user: EntityModel<Users>;
+      let user: Users;
 
       beforeEach(async () => {
         user = (await controller.findByPk(usersStub().id)).response;

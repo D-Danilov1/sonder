@@ -12,7 +12,7 @@ import * as bcrypt from 'bcryptjs';
 import { Roles } from '../roles/models/roles.model';
 
 @Injectable()
-export class UsersService extends EntityService {
+export class UsersService extends EntityService<Users> {
   constructor(
     @InjectModel(Users) protected repository: typeof Users,
     private rolesService: RolesService,

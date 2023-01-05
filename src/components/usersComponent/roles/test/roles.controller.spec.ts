@@ -6,7 +6,6 @@ import { RolesService } from '../roles.service';
 import { Roles } from '../models/roles.model';
 import { rolesCreateStub } from './stubs/roles-create.stub';
 import { rolesUpdateStub } from './stubs/roles-update.stub';
-import { EntityModel } from '../../../../classes/core/entity.model';
 
 jest.mock('../roles.service');
 
@@ -36,7 +35,7 @@ describe('RolesController', () => {
     });
 
     describe('when create is called', () => {
-      let role: EntityModel<Roles>;
+      let role: Roles;
 
       beforeEach(async () => {
         role = (await controller.create(rolesCreateStub())).response;
@@ -58,7 +57,7 @@ describe('RolesController', () => {
     });
 
     describe('when findAll is called', () => {
-      let roles: EntityModel<Roles>[];
+      let roles: Roles[];
 
       beforeEach(async () => {
         roles = (await controller.findAll()).response;
@@ -80,7 +79,7 @@ describe('RolesController', () => {
     });
 
     describe('when findByPk is called', () => {
-      let role: EntityModel<Roles>;
+      let role: Roles;
 
       beforeEach(async () => {
         role = (await controller.findByPk(rolesStub().id)).response;
