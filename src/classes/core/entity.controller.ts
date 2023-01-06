@@ -10,7 +10,7 @@ export abstract class EntityController<M, CMD, UMD> {
   }
 
   @UsePipes(ValidationPipe)
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Post()
   async create(
     @Body() dto: CMD,
@@ -21,7 +21,7 @@ export abstract class EntityController<M, CMD, UMD> {
     };
   }
 
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Get()
   async findAll(): Promise<{response: M[]; statusCode: number}> {
     return {
@@ -30,7 +30,7 @@ export abstract class EntityController<M, CMD, UMD> {
     };
   }
 
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Get('/:id')
   async findByPk(
     @Param('id') id: number,
@@ -42,7 +42,7 @@ export abstract class EntityController<M, CMD, UMD> {
   }
 
   @UsePipes(ValidationPipe)
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Put()
   async update(
     @Body() dto: UMD,
@@ -53,7 +53,7 @@ export abstract class EntityController<M, CMD, UMD> {
     };
   }
 
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Delete('/:id')
   async destroy(
     @Param('id') id: number,

@@ -4,7 +4,6 @@ import { UsersModule } from './components/usersComponent/users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { RolesModule } from './components/usersComponent/roles/roles.module';
 import { AuthorizationModule } from './components/usersComponent/authorization/authorization.module';
-import { UsersCategoriesModule } from './components/usersComponent/users-categories/users-categories.module';
 import { InitializerModule } from './components/initializerComponent/initializer/initializer.module';
 import { RefreshTokensModule } from './components/usersComponent/refresh-tokens/refresh-tokens.module';
 
@@ -34,7 +33,6 @@ import { RefreshTokensModule } from './components/usersComponent/refresh-tokens/
     RefreshTokensModule,
     RolesModule,
     UsersModule,
-    UsersCategoriesModule,
   ],
 })
 export class AppModule {}

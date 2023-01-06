@@ -13,7 +13,7 @@ export class RolesController {
   }
 
   @UsePipes(ValidationPipe)
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Post()
   async create(
     @Body() dto: CreateRolesDto,
@@ -24,7 +24,7 @@ export class RolesController {
     };
   }
 
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Get()
   async findAll(): Promise<{response: Roles[]; statusCode: number}> {
     return {
@@ -33,7 +33,7 @@ export class RolesController {
     };
   }
 
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Get('/:id')
   async findByPk(
     @Param('id') id: number,
@@ -44,7 +44,7 @@ export class RolesController {
     };
   }
 
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Get('/name/:name')
   async findByName(
     @Param('name') name: string,
@@ -56,7 +56,7 @@ export class RolesController {
   }
 
   @UsePipes(ValidationPipe)
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Put()
   async update(
     @Body() dto: UpdateRolesDto,
@@ -67,7 +67,7 @@ export class RolesController {
     };
   }
 
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Delete('/:id')
   async destroy(
     @Param('id') id: number,

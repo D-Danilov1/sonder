@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { RolesService } from '../../usersComponent/roles/roles.service';
 import { ROLES } from '../../../constants/roles.constants';
-import { USERS_CATEGORIES } from '../../../constants/users-categories.constants';
 import { UsersService } from '../../usersComponent/users/users.service';
-import { UsersCategoriesService } from '../../usersComponent/users-categories/users-categories.service';
 import { Users } from '../../usersComponent/users/models/users.model';
 
 // TODO: вынести всё в Seeds
@@ -11,7 +9,6 @@ import { Users } from '../../usersComponent/users/models/users.model';
 export class InitializerService {
   constructor(
     private rolesService: RolesService,
-    private usersCategoriesService: UsersCategoriesService,
     private usersService: UsersService,
   ) {
   }
@@ -19,7 +16,6 @@ export class InitializerService {
   async initialization() {
     await InitializerService.findOrCreateSimpleConstants([
       {service: this.rolesService, constants: ROLES},
-      {service: this.usersCategoriesService, constants: USERS_CATEGORIES},
     ]);
 
     await InitializerService.findOrCreateDifficultConstants([]);

@@ -24,7 +24,7 @@ export class UsersController {
     };
   }
 
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Get()
   async findAll(): Promise<{response: Users[]; statusCode: number}> {
     return {
@@ -33,7 +33,7 @@ export class UsersController {
     };
   }
 
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Get('/:id')
   async findByPk(
     @Param('id') id: string,
@@ -44,7 +44,7 @@ export class UsersController {
     };
   }
 
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Get('/email/:email')
   async findByEmail(
     @Param('email') email: string,
@@ -56,7 +56,7 @@ export class UsersController {
   }
 
   @UsePipes(ValidationPipe)
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Put()
   async update(
     @Body() dto: UpdateUsersDto,
@@ -67,7 +67,7 @@ export class UsersController {
     };
   }
 
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Delete('/:id')
   async destroy(
     @Param('id') id: string,
@@ -79,7 +79,7 @@ export class UsersController {
   }
 
   @UsePipes(ValidationPipe)
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Put('/add/role')
   async addRoleToUser(
     @Body() dto: RoleToUserDto,
@@ -91,7 +91,7 @@ export class UsersController {
   }
 
   @UsePipes(ValidationPipe)
-  @RolesGuards(ROLES.ADMIN)
+  @RolesGuards([ROLES.ADMIN])
   @Delete('/remove/role')
   async removeRoleToUser(
     @Body() dto: RoleToUserDto,

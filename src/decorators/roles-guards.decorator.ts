@@ -3,7 +3,7 @@ import { RolesGuard } from '../components/usersComponent/authorization/guards/ro
 
 export const ROLES_KEY = 'roles';
 
-export const RolesGuards = (...roles: string[]) => {
+export const RolesGuards = (roles: string[]): MethodDecorator => {
   const setMetadata = SetMetadata(ROLES_KEY, roles);
   const useGuards = UseGuards(RolesGuard);
 
