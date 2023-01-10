@@ -23,7 +23,7 @@ export class AuthorizationService {
     const tokens = this.token.generateTokens(user);
 
     await this.refreshTokensService.saveRefreshToken({
-      userID: user.id,
+      user_id: user.id,
       token: tokens.refreshToken,
     });
 

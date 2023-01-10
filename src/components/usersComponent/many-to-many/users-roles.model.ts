@@ -4,8 +4,8 @@ import { Users } from '../users/models/users.model';
 import { EntityModel } from '../../../classes/core/entity.model';
 
 interface UsersRolesCreationAttrs {
-  userID: string;
-  roleID: number;
+  user_id: string;
+  role_id: number;
 }
 
 @Table({tableName: 'UsersRoles'})
@@ -20,9 +20,9 @@ export class UsersRoles extends EntityModel<UsersRoles, UsersRolesCreationAttrs>
 
   @ForeignKey(() => Users)
   @Column({type: DataType.STRING})
-  userID: string;
+  user_id: string;
 
   @ForeignKey(() => Roles)
   @Column({type: DataType.INTEGER})
-  roleID: number;
+  role_id: number;
 }

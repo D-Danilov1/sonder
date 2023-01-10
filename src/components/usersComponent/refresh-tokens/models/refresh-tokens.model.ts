@@ -3,7 +3,7 @@ import { Users } from '../../users/models/users.model';
 import { EntityModel } from '../../../../classes/core/entity.model';
 
 interface RefreshTokenCreationAttrs {
-  userID: string;
+  user_id: string;
   token: string;
 }
 
@@ -22,7 +22,7 @@ export class RefreshTokens extends EntityModel<RefreshTokens, RefreshTokenCreati
 
   @ForeignKey(() => Users)
   @Column({type: DataType.STRING})
-  userID: string;
+  user_id: string;
 
   @BelongsTo(() => Users)
   user: Users;

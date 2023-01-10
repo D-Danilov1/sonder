@@ -12,13 +12,13 @@ export class RefreshTokensService {
 
   async saveRefreshToken(dto: SaveRefreshTokensDto) {
     const token: RefreshTokens = await this.repository.findOne({
-      where: {userID: dto.userID},
+      where: {user_id: dto.user_id},
     });
 
     if (token) {
       return await this.repository.update(
         {token: dto.token},
-        {where: {userID: token.userID}},
+        {where: {user_id: token.user_id}},
       );
     }
 

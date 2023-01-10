@@ -5,5 +5,5 @@ export class SaveRefreshTokensDto {
   readonly token: string;
 
   @IsUUID('4', {message: 'The value must be a UUID v4'})
-  userID: string;
+  user_id: string;
 }
