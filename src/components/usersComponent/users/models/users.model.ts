@@ -1,7 +1,8 @@
-import { BelongsToMany, Column, DataType, Table } from 'sequelize-typescript';
+import { BelongsToMany, Column, DataType, HasMany, Table } from 'sequelize-typescript';
 import { Roles } from '../../roles/models/roles.model';
 import { UsersRoles } from '../../many-to-many/users-roles.model';
 import { EntityModel } from '../../../../classes/core/entity.model';
+import { Funds } from '../../../financeComponent/funds/models/funds.model';
 
 interface UserCreationAttrs {
   id: string;
@@ -26,4 +27,7 @@ export class Users extends EntityModel<Users, UserCreationAttrs> {
 
   @BelongsToMany(() => Roles, () => UsersRoles)
   roles: Roles[];
+
+  @HasMany(() => Funds)
+  funds: Funds[];
 }

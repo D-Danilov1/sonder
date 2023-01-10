@@ -3,7 +3,6 @@ import { Users } from './models/users.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { RolesService } from '../roles/roles.service';
 import { EntityService } from '../../../classes/core/entity.service';
-import { findByEmail } from '../../../traits/find-by.trait';
 import { RoleToUserDto } from './dto/role-to-user.dto';
 import { CreateUsersDto } from './dto/create-users.dto';
 import { randomUUID } from 'crypto';
@@ -43,7 +42,18 @@ export class UsersService extends EntityService<Users> {
     return await bcrypt.hash(password, 6);
   }
 
-  findByEmail = findByEmail;
+  async findByEmail(email: string): Promise<Users> {
+    const user = await this.repository.findOne({
+      where: {email: email},
+      include: {model: Roles},
+    });
+
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return user;
+  }
 
   async addRoleToUser(dto: RoleToUserDto) {
     const user: Users = await this.repository.findOne({

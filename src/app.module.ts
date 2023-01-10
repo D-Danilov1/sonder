@@ -6,6 +6,7 @@ import { RolesModule } from './components/usersComponent/roles/roles.module';
 import { AuthorizationModule } from './components/usersComponent/authorization/authorization.module';
 import { InitializerModule } from './components/initializerComponent/initializer/initializer.module';
 import { RefreshTokensModule } from './components/usersComponent/refresh-tokens/refresh-tokens.module';
+import { FundsModule } from './components/financeComponent/funds/funds.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { RefreshTokensModule } from './components/usersComponent/refresh-tokens/
     RefreshTokensModule,
     RolesModule,
     UsersModule,
+    FundsModule,
   ],
 })
 export class AppModule {}
