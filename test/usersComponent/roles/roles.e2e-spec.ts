@@ -22,43 +22,38 @@ describe('Roles (e2e)', () => {
   });
 
   describe('/api/roles (POST)', () => {
-    it(
-      'should create a role and return status HttpStatus.CREATED because it a Admin',
-      async () => {
-        await request(app.getHttpServer())
-          .post('/api/roles')
-          .set('Authorization', 'Bearer ' + tokenAdmin)
-          .send(rolesCreateStub())
-          .expect(HttpStatus.CREATED)
-          .then((response) => {
-            role = response.body.response;
-          });
-      });
+    it('should create a role and return status HttpStatus.CREATED because it a Admin', async () => {
+      await request(app.getHttpServer())
+        .post('/api/roles')
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .send(rolesCreateStub())
+        .expect(HttpStatus.CREATED)
+        .then((response) => {
+          role = response.body.response;
+        });
+    });
 
-    it('should return status HttpStatus.FORBIDDEN because it a User',
-      async () => {
-        await request(app.getHttpServer())
-          .get('/api/roles')
-          .set('Authorization', 'Bearer ' + tokenUser)
-          .send(rolesCreateStub())
-          .expect(HttpStatus.FORBIDDEN);
-      });
+    it('should return status HttpStatus.FORBIDDEN because it a User', async () => {
+      await request(app.getHttpServer())
+        .get('/api/roles')
+        .set('Authorization', 'Bearer ' + tokenUser)
+        .send(rolesCreateStub())
+        .expect(HttpStatus.FORBIDDEN);
+    });
 
-    it('should return status HttpStatus.FORBIDDEN because it a Unknown',
-      async () => {
-        await request(app.getHttpServer())
-          .get('/api/roles')
-          .send(rolesCreateStub())
-          .expect(HttpStatus.FORBIDDEN);
-      });
+    it('should return status HttpStatus.FORBIDDEN because it a Unknown', async () => {
+      await request(app.getHttpServer())
+        .get('/api/roles')
+        .send(rolesCreateStub())
+        .expect(HttpStatus.FORBIDDEN);
+    });
 
-    it('should return status HttpStatus.BAD_REQUEST because it empty request',
-      async () => {
-        await request(app.getHttpServer())
-          .post('/api/roles')
-          .set('Authorization', 'Bearer ' + tokenAdmin)
-          .expect(HttpStatus.BAD_REQUEST);
-      });
+    it('should return status HttpStatus.BAD_REQUEST because it empty request', async () => {
+      await request(app.getHttpServer())
+        .post('/api/roles')
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .expect(HttpStatus.BAD_REQUEST);
+    });
   });
 
   describe('/api/roles (PUT)', () => {
@@ -88,13 +83,12 @@ describe('Roles (e2e)', () => {
         .expect(HttpStatus.FORBIDDEN);
     });
 
-    it('should return status BAD_REQUEST because it empty request',
-      async () => {
-        await request(app.getHttpServer())
-          .put('/api/roles')
-          .set('Authorization', 'Bearer ' + tokenAdmin)
-          .expect(HttpStatus.BAD_REQUEST);
-      });
+    it('should return status BAD_REQUEST because it empty request', async () => {
+      await request(app.getHttpServer())
+        .put('/api/roles')
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .expect(HttpStatus.BAD_REQUEST);
+    });
   });
 
   describe('/api/roles (GET)', () => {

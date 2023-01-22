@@ -9,6 +9,7 @@ import { RefreshTokensModule } from './components/usersComponent/refresh-tokens/
 import { FundsModule } from './components/financeComponent/funds/funds.module';
 import { ExpenseCategoriesModule } from './components/financeComponent/expense-categories/expense-categories.module';
 import { IncomeCategoriesModule } from './components/financeComponent/income-categories/income-categories.module';
+import { IncomeModule } from './components/financeComponent/income/income.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { IncomeCategoriesModule } from './components/financeComponent/income-cat
     UsersModule,
     FundsModule,
     ExpenseCategoriesModule,
+    IncomeModule,
     IncomeCategoriesModule,
   ],
 })

@@ -22,43 +22,38 @@ describe('Funds (e2e)', () => {
   });
 
   describe('/api/funds (POST)', () => {
-    it(
-      'should create a fund and return status HttpStatus.CREATED because it a Admin',
-      async () => {
-        await request(app.getHttpServer())
-          .post('/api/funds')
-          .set('Authorization', 'Bearer ' + tokenAdmin)
-          .send(fundsCreateStub())
-          .expect(HttpStatus.CREATED)
-          .then((response) => {
-            fund = response.body.response;
-          });
-      });
+    it('should create a fund and return status HttpStatus.CREATED because it a Admin', async () => {
+      await request(app.getHttpServer())
+        .post('/api/funds')
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .send(fundsCreateStub())
+        .expect(HttpStatus.CREATED)
+        .then((response) => {
+          fund = response.body.response;
+        });
+    });
 
-    it('should return status HttpStatus.FORBIDDEN because it a User',
-      async () => {
-        await request(app.getHttpServer())
-          .get('/api/funds')
-          .set('Authorization', 'Bearer ' + tokenUser)
-          .send(fundsCreateStub())
-          .expect(HttpStatus.FORBIDDEN);
-      });
+    it('should return status HttpStatus.FORBIDDEN because it a User', async () => {
+      await request(app.getHttpServer())
+        .get('/api/funds')
+        .set('Authorization', 'Bearer ' + tokenUser)
+        .send(fundsCreateStub())
+        .expect(HttpStatus.FORBIDDEN);
+    });
 
-    it('should return status HttpStatus.FORBIDDEN because it a Unknown',
-      async () => {
-        await request(app.getHttpServer())
-          .get('/api/funds')
-          .send(fundsCreateStub())
-          .expect(HttpStatus.FORBIDDEN);
-      });
+    it('should return status HttpStatus.FORBIDDEN because it a Unknown', async () => {
+      await request(app.getHttpServer())
+        .get('/api/funds')
+        .send(fundsCreateStub())
+        .expect(HttpStatus.FORBIDDEN);
+    });
 
-    it('should return status HttpStatus.BAD_REQUEST because it empty request',
-      async () => {
-        await request(app.getHttpServer())
-          .post('/api/funds')
-          .set('Authorization', 'Bearer ' + tokenAdmin)
-          .expect(HttpStatus.BAD_REQUEST);
-      });
+    it('should return status HttpStatus.BAD_REQUEST because it empty request', async () => {
+      await request(app.getHttpServer())
+        .post('/api/funds')
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .expect(HttpStatus.BAD_REQUEST);
+    });
   });
 
   describe('/api/funds (PUT)', () => {
@@ -88,13 +83,12 @@ describe('Funds (e2e)', () => {
         .expect(HttpStatus.FORBIDDEN);
     });
 
-    it('should return status BAD_REQUEST because it empty request',
-      async () => {
-        await request(app.getHttpServer())
-          .put('/api/funds')
-          .set('Authorization', 'Bearer ' + tokenAdmin)
-          .expect(HttpStatus.BAD_REQUEST);
-      });
+    it('should return status BAD_REQUEST because it empty request', async () => {
+      await request(app.getHttpServer())
+        .put('/api/funds')
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .expect(HttpStatus.BAD_REQUEST);
+    });
   });
 
   describe('/api/funds (GET)', () => {

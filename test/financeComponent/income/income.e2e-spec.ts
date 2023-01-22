@@ -1,17 +1,20 @@
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { expenseCategoriesCreateStub } from './stubs/expense-categories-create.stub';
-import { expenseCategoriesStub } from './stubs/expense-categories.stub';
+import { incomeCreateStub } from './stubs/income-create.stub';
+import { incomeStub } from './stubs/income.stub';
 import { AppGenerator } from '../../classes/app-generator';
 import { TokenGenerator } from '../../classes/token-generator';
 import { AppInitializer } from '../../classes/app-initializer';
-import { ExpenseCategories } from '../../../src/components/financeComponent/expense-categories/models/expense-categories.model';
+import { Income } from '../../../src/components/financeComponent/income/models/income.model';
+import { IncomeCategories } from '../../../src/components/financeComponent/income-categories/models/income-categories.model';
+import { incomeCategoriesCreateStub } from '../income-categories/stubs/income-categories-create.stub';
 
-describe('ExpenseCategories (e2e)', () => {
+describe('Income (e2e)', () => {
   let app: INestApplication;
   let tokenAdmin: string;
   let tokenUser: string;
-  let expenseCategory: ExpenseCategories;
+  let income: Income;
+  let incomeCategory: IncomeCategories;
 
   beforeAll(async () => {
     AppInitializer.jestSetTimeout();
@@ -21,48 +24,63 @@ describe('ExpenseCategories (e2e)', () => {
     tokenUser = await TokenGenerator.getUserToken();
   });
 
-  describe('/api/expense-categories (POST)', () => {
-    it('should create a expenseCategory and return status HttpStatus.CREATED because it a Admin', async () => {
+  describe('Create entities before test', () => {
+    it('should create a incomeCategory and return status HttpStatus.CREATED because it a Admin', async () => {
       await request(app.getHttpServer())
-        .post('/api/expense-categories')
+        .post('/api/income-categories')
         .set('Authorization', 'Bearer ' + tokenAdmin)
-        .send(expenseCategoriesCreateStub())
+        .send(incomeCategoriesCreateStub())
         .expect(HttpStatus.CREATED)
         .then((response) => {
-          expenseCategory = response.body.response;
+          incomeCategory = response.body.response;
+        });
+    });
+  });
+
+  describe('/api/income (POST)', () => {
+    it('should create a income and return status HttpStatus.CREATED because it a Admin', async () => {
+      let _incomeCreateStub = incomeCreateStub();
+      _incomeCreateStub.income_category_id = incomeCategory.id;
+      await request(app.getHttpServer())
+        .post('/api/income')
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .send(_incomeCreateStub)
+        .expect(HttpStatus.CREATED)
+        .then((response) => {
+          income = response.body.response;
         });
     });
 
     it('should return status HttpStatus.FORBIDDEN because it a User', async () => {
       await request(app.getHttpServer())
-        .get('/api/expense-categories')
+        .get('/api/income')
         .set('Authorization', 'Bearer ' + tokenUser)
-        .send(expenseCategoriesCreateStub())
+        .send(incomeCreateStub())
         .expect(HttpStatus.FORBIDDEN);
     });
 
     it('should return status HttpStatus.FORBIDDEN because it a Unknown', async () => {
       await request(app.getHttpServer())
-        .get('/api/expense-categories')
-        .send(expenseCategoriesCreateStub())
+        .get('/api/income')
+        .send(incomeCreateStub())
         .expect(HttpStatus.FORBIDDEN);
     });
 
     it('should return status HttpStatus.BAD_REQUEST because it empty request', async () => {
       await request(app.getHttpServer())
-        .post('/api/expense-categories')
+        .post('/api/income')
         .set('Authorization', 'Bearer ' + tokenAdmin)
         .expect(HttpStatus.BAD_REQUEST);
     });
   });
 
-  describe('/api/expense-categories (PUT)', () => {
-    it('should update a expenseCategory', async () => {
-      expenseCategory.name = 'Test' + Date.now();
+  describe('/api/income (PUT)', () => {
+    it('should update a income', async () => {
+      income.comment = 'Test' + Date.now();
       await request(app.getHttpServer())
-        .put('/api/expense-categories')
+        .put('/api/income')
         .set('Authorization', 'Bearer ' + tokenAdmin)
-        .send(expenseCategory)
+        .send(income)
         .then((response) => {
           expect(response.body.response).toEqual([1]);
         });
@@ -70,82 +88,82 @@ describe('ExpenseCategories (e2e)', () => {
 
     it('should return status FORBIDDEN because it a User', async () => {
       await request(app.getHttpServer())
-        .put('/api/expense-categories')
+        .put('/api/income')
         .set('Authorization', 'Bearer ' + tokenUser)
-        .send(expenseCategory)
+        .send(income)
         .expect(HttpStatus.FORBIDDEN);
     });
 
     it('should return status FORBIDDEN because it a Unknown', async () => {
       await request(app.getHttpServer())
-        .put('/api/expense-categories')
-        .send(expenseCategory)
+        .put('/api/income')
+        .send(income)
         .expect(HttpStatus.FORBIDDEN);
     });
 
     it('should return status BAD_REQUEST because it empty request', async () => {
       await request(app.getHttpServer())
-        .put('/api/expense-categories')
+        .put('/api/income')
         .set('Authorization', 'Bearer ' + tokenAdmin)
         .expect(HttpStatus.BAD_REQUEST);
     });
   });
 
-  describe('/api/expense-categories (GET)', () => {
-    it('should return expense-categories and status OK because it a Admin', async () => {
+  describe('/api/income (GET)', () => {
+    it('should return income and status OK because it a Admin', async () => {
       await request(app.getHttpServer())
-        .get('/api/expense-categories')
+        .get('/api/income')
         .set('Authorization', 'Bearer ' + tokenAdmin)
         .expect(HttpStatus.OK)
         .then((response) => {
           console.log(response.body.response[0]);
-          expect(response.body.response[0]).toEqual(expenseCategoriesStub());
+          expect(response.body.response[0]).toEqual(incomeStub());
         });
     });
 
     it('should return status FORBIDDEN because it a User', async () => {
       await request(app.getHttpServer())
-        .get('/api/expense-categories')
+        .get('/api/income')
         .set('Authorization', 'Bearer ' + tokenUser)
         .expect(HttpStatus.FORBIDDEN);
     });
 
     it('should return status FORBIDDEN because it a Unknown', async () => {
       await request(app.getHttpServer())
-        .get('/api/expense-categories')
+        .get('/api/income')
         .expect(HttpStatus.FORBIDDEN);
     });
   });
 
-  describe('/api/expense-categories/:id (GET)', () => {
-    it('should return a expenseCategory and status OK because it a Admin', async () => {
+  describe('/api/income/:id (GET)', () => {
+    it('should return a income and status OK because it a Admin', async () => {
       await request(app.getHttpServer())
-        .get('/api/expense-categories/' + expenseCategory.id)
+        .get('/api/income/' + income.id)
         .set('Authorization', 'Bearer ' + tokenAdmin)
         .expect(HttpStatus.OK)
         .then((response) => {
-          expect(response.body.response).toEqual(expenseCategoriesStub());
+          expect(response.body.response).toEqual(incomeStub());
         });
     });
 
     it('should return status FORBIDDEN because it a User', async () => {
       await request(app.getHttpServer())
-        .get('/api/expense-categories/' + expenseCategory.id)
+        .get('/api/income/' + income.id)
         .set('Authorization', 'Bearer ' + tokenUser)
         .expect(HttpStatus.FORBIDDEN);
     });
 
     it('should return status FORBIDDEN because it a Unknown', async () => {
       await request(app.getHttpServer())
-        .get('/api/expense-categories/' + expenseCategory.id)
+        .get('/api/income/' + income.id)
         .expect(HttpStatus.FORBIDDEN);
     });
   });
 
-  describe('/api/expense-categories/:id (DELETE)', () => {
-    it('should delete a expenseCategory', async () => {
+  describe('/api/income/:id (DELETE)', () => {
+    it('should delete a income', async () => {
       await request(app.getHttpServer())
-        .delete('/api/expense-categories/' + expenseCategory.id)
+        .delete('/api/income/' + income.id)
         .set('Authorization', 'Bearer ' + tokenAdmin)
         .then((response) => {
           expect(response.body.response).toEqual(1);
@@ -154,22 +172,33 @@ describe('ExpenseCategories (e2e)', () => {
 
     it('should return status FORBIDDEN because it a User', async () => {
       await request(app.getHttpServer())
-        .delete('/api/expense-categories/' + expenseCategory.id)
+        .delete('/api/income/' + income.id)
         .set('Authorization', 'Bearer ' + tokenUser)
         .expect(HttpStatus.FORBIDDEN);
     });
 
     it('should return status FORBIDDEN because it a Unknown', async () => {
       await request(app.getHttpServer())
-        .delete('/api/expense-categories/' + expenseCategory.id)
+        .delete('/api/income/' + income.id)
         .expect(HttpStatus.FORBIDDEN);
     });
 
     it('should return status NOT_FOUND because it empty request', async () => {
       await request(app.getHttpServer())
-        .delete('/api/expense-categories/')
+        .delete('/api/income/')
         .set('Authorization', 'Bearer ' + tokenAdmin)
         .expect(HttpStatus.NOT_FOUND);
+    });
+  });
+
+  describe('Delete entities after test', () => {
+    it('should delete a incomeCategory', async () => {
+      await request(app.getHttpServer())
+        .delete('/api/income-categories/' + incomeCategory.id)
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .then((response) => {
+          expect(response.body.response).toEqual(1);
+        });
     });
   });
 });

@@ -22,21 +22,18 @@ describe('IncomeCategories (e2e)', () => {
   });
 
   describe('/api/income-categories (POST)', () => {
-    it(
-      'should create a incomeCategory and return status HttpStatus.CREATED because it a Admin',
-      async () => {
-        await request(app.getHttpServer())
-          .post('/api/income-categories')
-          .set('Authorization', 'Bearer ' + tokenAdmin)
-          .send(incomeCategoriesCreateStub())
-          .expect(HttpStatus.CREATED)
-          .then((response) => {
-            incomeCategory = response.body.response;
-          });
-      });
+    it('should create a incomeCategory and return status HttpStatus.CREATED because it a Admin', async () => {
+      await request(app.getHttpServer())
+        .post('/api/income-categories')
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .send(incomeCategoriesCreateStub())
+        .expect(HttpStatus.CREATED)
+        .then((response) => {
+          incomeCategory = response.body.response;
+        });
+    });
 
-    it('should return status HttpStatus.FORBIDDEN because it a User',
-      async () => {
+    it('should return status HttpStatus.FORBIDDEN because it a User', async () => {
         await request(app.getHttpServer())
           .get('/api/income-categories')
           .set('Authorization', 'Bearer ' + tokenUser)
@@ -44,16 +41,14 @@ describe('IncomeCategories (e2e)', () => {
           .expect(HttpStatus.FORBIDDEN);
       });
 
-    it('should return status HttpStatus.FORBIDDEN because it a Unknown',
-      async () => {
+    it('should return status HttpStatus.FORBIDDEN because it a Unknown', async () => {
         await request(app.getHttpServer())
           .get('/api/income-categories')
           .send(incomeCategoriesCreateStub())
           .expect(HttpStatus.FORBIDDEN);
       });
 
-    it('should return status HttpStatus.BAD_REQUEST because it empty request',
-      async () => {
+    it('should return status HttpStatus.BAD_REQUEST because it empty request', async () => {
         await request(app.getHttpServer())
           .post('/api/income-categories')
           .set('Authorization', 'Bearer ' + tokenAdmin)
@@ -88,8 +83,7 @@ describe('IncomeCategories (e2e)', () => {
         .expect(HttpStatus.FORBIDDEN);
     });
 
-    it('should return status BAD_REQUEST because it empty request',
-      async () => {
+    it('should return status BAD_REQUEST because it empty request', async () => {
         await request(app.getHttpServer())
           .put('/api/income-categories')
           .set('Authorization', 'Bearer ' + tokenAdmin)

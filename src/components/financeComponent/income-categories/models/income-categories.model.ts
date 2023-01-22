@@ -1,6 +1,7 @@
-import { Column, DataType, ForeignKey, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, HasMany, Table } from 'sequelize-typescript';
 import { EntityModel } from '../../../../classes/core/entity.model';
 import { Users } from '../../../usersComponent/users/models/users.model';
+import { Income } from '../../income/models/income.model';
 
 interface RoleCreationAttrs {
   name: string;
@@ -29,4 +30,7 @@ export class IncomeCategories extends EntityModel<IncomeCategories, RoleCreation
 
   @Column({type: DataType.BOOLEAN, allowNull: false, defaultValue: true})
   is_active: boolean;
+
+  @HasMany(() => Income)
+  income: Income[];
 }

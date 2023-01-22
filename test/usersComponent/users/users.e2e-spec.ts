@@ -33,12 +33,11 @@ describe('Users (e2e)', () => {
         });
     });
 
-    it('should return status BAD_REQUEST because it empty request',
-      async () => {
-        await request(app.getHttpServer())
-          .post('/api/users')
-          .expect(HttpStatus.BAD_REQUEST);
-      });
+    it('should return status BAD_REQUEST because it empty request', async () => {
+      await request(app.getHttpServer())
+        .post('/api/users')
+        .expect(HttpStatus.BAD_REQUEST);
+    });
   });
 
   describe('/api/users (PUT)', () => {
@@ -68,13 +67,12 @@ describe('Users (e2e)', () => {
         .expect(HttpStatus.FORBIDDEN);
     });
 
-    it('should return status BAD_REQUEST because it empty request',
-      async () => {
-        await request(app.getHttpServer())
-          .put('/api/users')
-          .set('Authorization', 'Bearer ' + tokenAdmin)
-          .expect(HttpStatus.BAD_REQUEST);
-      });
+    it('should return status BAD_REQUEST because it empty request', async () => {
+      await request(app.getHttpServer())
+        .put('/api/users')
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .expect(HttpStatus.BAD_REQUEST);
+    });
   });
 
   describe('/api/users/add/role (PUT)', () => {
@@ -107,13 +105,12 @@ describe('Users (e2e)', () => {
       }).expect(HttpStatus.FORBIDDEN);
     });
 
-    it('should return status BAD_REQUEST because it empty request',
-      async () => {
-        await request(app.getHttpServer())
-          .put('/api/users/add/role')
-          .set('Authorization', 'Bearer ' + tokenAdmin)
-          .expect(HttpStatus.BAD_REQUEST);
-      });
+    it('should return status BAD_REQUEST because it empty request', async () => {
+      await request(app.getHttpServer())
+        .put('/api/users/add/role')
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .expect(HttpStatus.BAD_REQUEST);
+    });
   });
 
   describe('/api/users/remove/role (DELETE)', () => {
@@ -146,13 +143,12 @@ describe('Users (e2e)', () => {
       }).expect(HttpStatus.FORBIDDEN);
     });
 
-    it('should return status BAD_REQUEST because it empty request',
-      async () => {
-        await request(app.getHttpServer())
-          .delete('/api/users/remove/role')
-          .set('Authorization', 'Bearer ' + tokenAdmin)
-          .expect(HttpStatus.BAD_REQUEST);
-      });
+    it('should return status BAD_REQUEST because it empty request', async () => {
+      await request(app.getHttpServer())
+        .delete('/api/users/remove/role')
+        .set('Authorization', 'Bearer ' + tokenAdmin)
+        .expect(HttpStatus.BAD_REQUEST);
+    });
   });
 
   describe('/api/users (GET)', () => {
