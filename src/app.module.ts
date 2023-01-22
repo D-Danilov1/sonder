@@ -8,6 +8,7 @@ import { InitializerModule } from './components/initializerComponent/initializer
 import { RefreshTokensModule } from './components/usersComponent/refresh-tokens/refresh-tokens.module';
 import { FundsModule } from './components/financeComponent/funds/funds.module';
 import { ExpenseCategoriesModule } from './components/financeComponent/expense-categories/expense-categories.module';
+import { IncomeCategoriesModule } from './components/financeComponent/income-categories/income-categories.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { ExpenseCategoriesModule } from './components/financeComponent/expense-c
     UsersModule,
     FundsModule,
     ExpenseCategoriesModule,
+    IncomeCategoriesModule,
   ],
 })
 export class AppModule {}

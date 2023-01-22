@@ -4,6 +4,7 @@ import { UsersRoles } from '../../many-to-many/users-roles.model';
 import { EntityModel } from '../../../../classes/core/entity.model';
 import { Funds } from '../../../financeComponent/funds/models/funds.model';
 import { ExpenseCategories } from '../../../financeComponent/expense-categories/models/expense-categories.model';
+import { IncomeCategories } from '../../../financeComponent/income-categories/models/income-categories.model';
 
 interface UserCreationAttrs {
   id: string;
@@ -34,4 +35,7 @@ export class Users extends EntityModel<Users, UserCreationAttrs> {
 
   @HasMany(() => ExpenseCategories)
   expenseCategories: ExpenseCategories[];
+
+  @HasMany(() => IncomeCategories)
+  incomeCategories: IncomeCategories[];
 }
