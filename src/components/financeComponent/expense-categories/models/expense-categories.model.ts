@@ -1,14 +1,15 @@
-import { Column, DataType, ForeignKey, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, HasMany, Table } from 'sequelize-typescript';
 import { EntityModel } from '../../../../classes/core/entity.model';
 import { Users } from '../../../usersComponent/users/models/users.model';
+import { Expense } from '../../expense/models/expense.model';
 
-interface RoleCreationAttrs {
+interface ExpenseCategoryCreationAttrs {
   name: string;
   user_id: string;
 }
 
 @Table({tableName: 'ExpenseCategories'})
-export class ExpenseCategories extends EntityModel<ExpenseCategories, RoleCreationAttrs> {
+export class ExpenseCategories extends EntityModel<ExpenseCategories, ExpenseCategoryCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -29,4 +30,7 @@ export class ExpenseCategories extends EntityModel<ExpenseCategories, RoleCreati
 
   @Column({type: DataType.BOOLEAN, allowNull: false, defaultValue: true})
   is_active: boolean;
+
+  @HasMany(() => Expense)
+  expense: Expense[];
 }

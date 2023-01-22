@@ -10,6 +10,7 @@ import { FundsModule } from './components/financeComponent/funds/funds.module';
 import { ExpenseCategoriesModule } from './components/financeComponent/expense-categories/expense-categories.module';
 import { IncomeCategoriesModule } from './components/financeComponent/income-categories/income-categories.module';
 import { IncomeModule } from './components/financeComponent/income/income.module';
+import { ExpenseModule } from './components/financeComponent/expense/expense.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { IncomeModule } from './components/financeComponent/income/income.module
     RolesModule,
     UsersModule,
     FundsModule,
+    ExpenseModule,
     ExpenseCategoriesModule,
     IncomeModule,
     IncomeCategoriesModule,

@@ -3,13 +3,13 @@ import { EntityModel } from '../../../../classes/core/entity.model';
 import { Users } from '../../../usersComponent/users/models/users.model';
 import { Income } from '../../income/models/income.model';
 
-interface RoleCreationAttrs {
+interface IncomeCategoryCreationAttrs {
   name: string;
   user_id: string;
 }
 
 @Table({tableName: 'IncomeCategories'})
-export class IncomeCategories extends EntityModel<IncomeCategories, RoleCreationAttrs> {
+export class IncomeCategories extends EntityModel<IncomeCategories, IncomeCategoryCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,

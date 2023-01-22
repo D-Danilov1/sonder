@@ -1,18 +1,20 @@
 import { Column, DataType, ForeignKey, Table } from 'sequelize-typescript';
 import { EntityModel } from '../../../../classes/core/entity.model';
 import { Users } from '../../../usersComponent/users/models/users.model';
-import { IncomeCategories } from '../../income-categories/models/income-categories.model';
+import { ExpenseCategories } from '../../expense-categories/models/expense-categories.model';
+import { Funds } from '../../funds/models/funds.model';
 
-interface IncomeCreationAttrs {
+interface ExpenseCreationAttrs {
   sum: number;
   user_id: string;
-  income_category_id: number;
+  expense_category_id: number;
+  fund_id: number;
   comment: string;
   date: string;
 }
 
-@Table({tableName: 'Income'})
-export class Income extends EntityModel<Income, IncomeCreationAttrs> {
+@Table({tableName: 'Expense'})
+export class Expense extends EntityModel<Expense, ExpenseCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -28,9 +30,13 @@ export class Income extends EntityModel<Income, IncomeCreationAttrs> {
   @Column({type: DataType.STRING, allowNull: false})
   user_id: string;
 
-  @ForeignKey(() => IncomeCategories)
+  @ForeignKey(() => ExpenseCategories)
   @Column({type: DataType.INTEGER, allowNull: false})
-  income_category_id: number;
+  expense_category_id: number;
+
+  @ForeignKey(() => Funds)
+  @Column({type: DataType.INTEGER, allowNull: false})
+  fund_id: number;
 
   @Column({type: DataType.TEXT, allowNull: false})
   comment: string;

@@ -6,6 +6,7 @@ import { Funds } from '../../../financeComponent/funds/models/funds.model';
 import { ExpenseCategories } from '../../../financeComponent/expense-categories/models/expense-categories.model';
 import { IncomeCategories } from '../../../financeComponent/income-categories/models/income-categories.model';
 import { Income } from '../../../financeComponent/income/models/income.model';
+import { Expense } from '../../../financeComponent/expense/models/expense.model';
 
 interface UserCreationAttrs {
   id: string;
@@ -33,6 +34,9 @@ export class Users extends EntityModel<Users, UserCreationAttrs> {
 
   @HasMany(() => Funds)
   funds: Funds[];
+
+  @HasMany(() => Expense)
+  expense: Expense[];
 
   @HasMany(() => ExpenseCategories)
   expenseCategories: ExpenseCategories[];
