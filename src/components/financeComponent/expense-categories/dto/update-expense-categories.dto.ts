@@ -1,6 +1,6 @@
-import { IsBoolean, IsNumber, IsPositive, IsString, IsUUID, Length } from 'class-validator';
+import { IsBoolean, IsNumber, IsString, IsUUID, Length } from 'class-validator';
 
-export class UpdateFundsDto {
+export class UpdateExpenseCategoriesDto {
   @IsNumber({}, {message: 'The value must be a number'})
   readonly id: number;
 
@@ -10,10 +10,6 @@ export class UpdateFundsDto {
 
   @IsUUID('4', {message: 'The value must be a UUID v4'})
   readonly user_id: string;
-
-  @IsNumber({}, {message: 'The value must be a number'})
-  @IsPositive({message: 'The value must be a positive number'})
-  readonly percent: number;
 
   @IsBoolean({message: 'The value must be a boolean'})
   readonly is_active: boolean;

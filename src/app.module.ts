@@ -7,6 +7,7 @@ import { AuthorizationModule } from './components/usersComponent/authorization/a
 import { InitializerModule } from './components/initializerComponent/initializer/initializer.module';
 import { RefreshTokensModule } from './components/usersComponent/refresh-tokens/refresh-tokens.module';
 import { FundsModule } from './components/financeComponent/funds/funds.module';
+import { ExpenseCategoriesModule } from './components/financeComponent/expense-categories/expense-categories.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { FundsModule } from './components/financeComponent/funds/funds.module';
     RolesModule,
     UsersModule,
     FundsModule,
+    ExpenseCategoriesModule,
   ],
 })
 export class AppModule {}

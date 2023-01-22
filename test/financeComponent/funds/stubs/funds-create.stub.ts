@@ -3,5 +3,6 @@ import { CreateFundsDto } from '../../../../src/components/financeComponent/fund
 export const fundsCreateStub = (): CreateFundsDto =>
   <CreateFundsDto>{
     name: 'Test' + Date.now(),
-    userEmail: 'admin@gmail.com'
+    userEmail: 'admin@gmail.com',
+    percent: 100,
   };
