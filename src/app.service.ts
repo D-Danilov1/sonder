@@ -16,11 +16,11 @@ export class AppService {
   async send(dto: SendDto) {
     const token = this.configService.get<string>('TOKEN');
     const chatId = this.configService.get<string>('ChatID');
-
+    console.log(token)
     const message = `Номер телефона: ${dto.phone}%0AПочта: ${dto.email}`;
     await axios.get(
       `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`,
     );
-    return;
+    return true;
   }
 }
