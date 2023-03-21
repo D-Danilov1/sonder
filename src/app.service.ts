@@ -10,17 +10,18 @@ export class AppService {
   getDbConfig(): any {
     return {
       ChatID: this.configService.get<string>('ChatID'),
-      TOKEN: this.configService.get<number>('TOKEN'),
+      TOKEN: this.configService.get<string>('TOKEN'),
     };
   }
   async send(dto: SendDto) {
     const token = this.configService.get<string>('TOKEN');
     const chatId = this.configService.get<string>('ChatID');
-    console.log(token)
-    const message = `Номер телефона: ${dto.phone}%0AПочта: ${dto.email}`;
-    await axios.get(
-      `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`,
+
+    const message = `Номер телефона: ${dto.phone}%0AПочта: ${dto.email}${dto.message}`;
+
+    const response = await axios.get(
+      `https://api.telegram.org/bot6256679369:AAHONrIBT4l1c2oJ-wvKAJ-NaTdlo2ctfzw/sendMessage?chat_id=-887391970&text=${message}`,
     );
-    return true;
+    return response.status;
   }
 }
